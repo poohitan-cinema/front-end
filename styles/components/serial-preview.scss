@@ -1,0 +1,52 @@
+@import '../variables';
+@import '../color-schemes';
+@import '../mixins/aspect-ratio';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 20em;
+  min-width: 10em;
+  overflow: hidden;
+
+  border-radius: 2em;
+
+  cursor: pointer;
+
+  .cover-container {
+    overflow: hidden;
+
+    @include aspect-ratio(16, 10);
+  }
+
+  .cover {
+    background-color: $white;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: transform 200ms linear;
+  }
+
+  .content {
+    color: $black;
+
+    width: 100%;
+    text-align: center;
+  }
+
+  &:hover {
+    .cover {
+      transform: scale(1.02);
+    }
+  }
+
+  @each $scheme, $color in $color-schemes {
+    &.#{$scheme} {
+      .cover, .content {
+        background-color: $color;
+      }
+    }
+  }
+}

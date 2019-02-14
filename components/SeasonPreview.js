@@ -5,12 +5,10 @@ import Link from 'next/link';
 import styles from '../styles/components/season-preview.scss';
 
 const SeasonPreview = ({ id, cover, serialId }) => (
-  <Link href={`/season?id=${id}&serialId=${serialId}`} as={`/serials/${serialId}/${id}`}>
-    <a>
-      <div className={`${styles.wrapper} ${styles[serialId]}`} style={{ backgroundImage: `url("${cover}")` }}>
-        <div className={styles.content}>
-          <h2>{`Сезон ${id}`}</h2>
-        </div>
+  <Link href={`/season?id=${id}&serialId=${serialId}`} as={`/serials/${serialId}/seasons/${id}`}>
+    <a className={`${styles.wrapper} ${styles[serialId]}`} style={{ backgroundImage: `url("${cover}")` }}>
+      <div className={styles.content}>
+        <h2>{`Сезон ${id}`}</h2>
       </div>
     </a>
   </Link>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Layout from '../components/Layout';
 import SeasonPreview from '../components/SeasonPreview';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 import Data from '../services/data';
 
@@ -10,21 +11,27 @@ import styles from '../styles/pages/serial.scss';
 
 const SerialPage = ({
   title, id, icon, seasons,
-}) => (
-  <Layout>
-    <div className={styles.heading}>
-      {
-        icon && <div className={styles.icon} style={{ backgroundImage: `url("${icon}")` }} />
-      }
-      <h1 className={`${styles.title} ${styles[id]}`}>{title}</h1>
-    </div>
-    <div className={styles.grid}>
-      {
-        seasons.map(season => <SeasonPreview {...season} serialId={id} key={season.id} />)
-      }
-    </div>
-  </Layout>
-);
+}) => {
+  const breadcrumbs = [
+    {
+      icon,
+      title,
+    },
+  ];
+
+  return (
+    <Layout>
+      <div className={styles.heading}>
+        <Breadcrumbs crumbs={breadcrumbs} colorScheme={id} />
+      </div>
+      <div className={styles.grid}>
+        {
+          seasons.map(season => <SeasonPreview {...season} serialId={id} key={season.id} />)
+        }
+      </div>
+    </Layout>
+  );
+};
 
 SerialPage.getInitialProps = ({ query }) => {
   const { id } = query;

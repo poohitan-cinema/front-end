@@ -1,0 +1,32 @@
+@import '../variables';
+@import '../color-schemes';
+@import '../mixins/aspect-ratio';
+
+.wrapper {
+  background-color: $dark-grey;
+
+  display: flex;
+  align-items: center;
+  padding: 0 1.1em;
+  transition: all 150ms linear;
+
+  overflow: hidden;
+  width: 100%;
+
+  cursor: pointer;
+
+  .title {
+    margin-left: 1em;
+  }
+
+  &:nth-child(2n) {
+    background-color: lighten($dark-grey, 5%);
+  }
+
+  @each $scheme, $color in $color-schemes {
+    &:hover.#{$scheme} {
+      background-color: $color;
+      color: $black;
+    }
+  }
+}

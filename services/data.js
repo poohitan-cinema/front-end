@@ -11,7 +11,39 @@ const data = [
         cover: 'https://poohitan-com.ams3.cdn.digitaloceanspaces.com/cinema/images/serials/the-simpsons/s01e01_56.jpg',
         episodes: [
           {
-
+            id: 1,
+            title: 'Simpsons Roasting on an Open Fire',
+            source: 'https://poohitan-com.ams3.cdn.digitaloceanspaces.com/cinema/videos/serials/the-simpsons/kurhan-liubopytstvo.mp4',
+          },
+          {
+            id: 2,
+            title: 'Bart the Genius',
+            source: 'https://poohitan-com.ams3.cdn.digitaloceanspaces.com/cinema/videos/serials/the-simpsons/kurhan-liubopytstvo.mp4',
+          },
+          {
+            id: 3,
+            title: 'Homer\'s Odyssey',
+            source: 'https://poohitan-com.ams3.cdn.digitaloceanspaces.com/cinema/videos/serials/the-simpsons/kurhan-liubopytstvo.mp4',
+          },
+          {
+            id: 4,
+            title: 'There\'s No Disgrace Like Home',
+            source: 'https://poohitan-com.ams3.cdn.digitaloceanspaces.com/cinema/videos/serials/the-simpsons/kurhan-liubopytstvo.mp4',
+          },
+          {
+            id: 5,
+            title: 'Bart the General',
+            source: 'https://poohitan-com.ams3.cdn.digitaloceanspaces.com/cinema/videos/serials/the-simpsons/kurhan-liubopytstvo.mp4',
+          },
+          {
+            id: 6,
+            title: 'Moaning Lisa',
+            source: 'https://poohitan-com.ams3.cdn.digitaloceanspaces.com/cinema/videos/serials/the-simpsons/kurhan-liubopytstvo.mp4',
+          },
+          {
+            id: 7,
+            title: 'The Call of the Simpsons',
+            source: 'https://poohitan-com.ams3.cdn.digitaloceanspaces.com/cinema/videos/serials/the-simpsons/kurhan-liubopytstvo.mp4',
           },
         ],
       },
@@ -91,9 +123,9 @@ function listSerials() {
   return data
     .filter(item => item.type === 'serial')
     .map((item) => {
-      const { seasons, ...rest } = item;
+      const { seasons, ...restSerial } = item;
 
-      return rest;
+      return restSerial;
     });
 }
 
@@ -104,14 +136,16 @@ function listMovies() {
 
 function getSerial({ id }) {
   const serial = data.find(item => item.id === id && item.type === 'serial');
+  const { seasons, ...restSerial } = serial;
 
-  serial.seasons = serial.seasons.map((season) => {
-    const { episodes, ...rest } = season;
+  return {
+    ...restSerial,
+    seasons: seasons.map((season) => {
+      const { episodes, ...restSeason } = season;
 
-    return rest;
-  });
-
-  return serial;
+      return restSeason;
+    }),
+  };
 }
 
 function getMovie({ id }) {

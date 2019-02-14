@@ -12,7 +12,15 @@ app.prepare()
     const server = express();
     const { port } = config;
 
-    server.get('/serials/:serial_id/:season_id', (req, res) => {
+    server.get('/serials/:serial_id/seasons/:season_id/episodes/:episode_id', (req, res) => {
+      app.render(req, res, '/episode', {
+        serialId: req.params.serial_id,
+        seasonId: req.params.season_id,
+        id: req.params.episode_id,
+      });
+    });
+
+    server.get('/serials/:serial_id/seasons/:season_id', (req, res) => {
       app.render(req, res, '/season', {
         serialId: req.params.serial_id,
         id: req.params.season_id,

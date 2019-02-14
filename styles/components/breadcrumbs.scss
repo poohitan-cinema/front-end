@@ -1,0 +1,51 @@
+@import '../mixins/aspect-ratio';
+@import '../color-schemes';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.crumb {
+  display: flex;
+  align-items: center;
+  line-height: 1em;
+
+  .icon {
+    @include aspect-ratio(1, 1);
+
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 3em;
+    margin-right: 1em;
+    margin-bottom: 0.8em;
+  }
+
+
+  .link {
+    transition: color 100ms linear;
+    border-bottom: 8px solid transparent;
+
+    @each $scheme, $color in $color-schemes {
+      &.#{$scheme} {
+        color: $color;
+
+        &:hover {
+          border-bottom-color: $color;
+        }
+      }
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+.separator {
+  font-size: 2.5em;
+  font-weight: 900;
+  height: 1em;
+  margin: 0 0.4em;
+}

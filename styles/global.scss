@@ -19,7 +19,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Circe', Helvetica, sans-serif;
-  margin: 0.3em 0;
+  margin: .3em 0;
   line-height: 1em;
 }
 
@@ -48,5 +48,15 @@ p, span, blockquote {
     &:hover {
       color: darken($orange, 10%);
     }
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 2.5em;
   }
 }

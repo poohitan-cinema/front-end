@@ -19,15 +19,13 @@
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
-    width: 3em;
-    margin-right: 1em;
-    margin-bottom: 0.5em;
+    width: 1em;
+    margin-right: .3em;
+    transform: translateY(-.07em);
   }
 
   @each $scheme, $color in $color-schemes {
     .link.#{$scheme} {
-      margin: 0;
-
       @include link($color);
     }
   }
@@ -40,6 +38,6 @@
 .separator {
   font-size: 2.5em;
   font-weight: 900;
-  height: 0.6em;
-  margin: 0 0.4em;
+  height: .6em;
+  margin: 0 .4em;
 }

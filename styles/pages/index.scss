@@ -10,5 +10,11 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1.5em;
-  margin-top: 1.5em;
+  margin-top: 1em;
+}
+
+@media (max-width: 800px) {
+  .section {
+    margin-bottom: 3em;
+  }
 }

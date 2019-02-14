@@ -9,14 +9,14 @@ const Separator = () => <div className={styles.separator}>*</div>;
 const Crumb = ({
   title, icon, href, as, theme, disabled,
 }) => (
-  <div className={`${styles.crumb} ${disabled && styles.disabled}`}>
+  <h1 className={`${styles.crumb} ${disabled && styles.disabled}`}>
     {
       icon && <div className={styles.icon} style={{ backgroundImage: `url("${icon}")` }} />
     }
     <Link href={href} as={as}>
-      <a><h1 className={`${styles.link} ${styles[theme]}`}>{title}</h1></a>
+      <a className={`${styles.link} ${styles[theme]}`}>{title}</a>
     </Link>
-  </div>
+  </h1>
 );
 
 const Breadcrumbs = ({ crumbs, theme }) => (

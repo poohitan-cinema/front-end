@@ -40,7 +40,7 @@ const EpisodePage = ({
         {
           title && <h2 className={styles.title}>{title}</h2>
         }
-        <div className={styles.player} >
+        <div className={styles.player}>
           <Player source={source} />
         </div>
       </div>

@@ -18,7 +18,7 @@
   cursor: pointer;
 
   .content {
-    background-color: transparentize($dark-grey, 0.5);
+    background-color: transparentize($dark-grey, .5);
     color: $white;
 
     display: flex;

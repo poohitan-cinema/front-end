@@ -1,0 +1,13 @@
+@import '../variables';
+
+@mixin link($color: $white, $width: 0.15em) {
+  color: $color;
+  transition: color 100ms linear;
+  border: $width solid transparent;
+  border-left: none;
+  border-right: none;
+
+  &:hover {
+    border-bottom-color: $color;
+  }
+}

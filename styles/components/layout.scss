@@ -10,8 +10,13 @@
 }
 
 .layout {
-  margin: 2em 0;
-  padding: 2em;
+  padding: 4em 0;
   width: 80%;
   max-width: 1600px;
+}
+
+.logo-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

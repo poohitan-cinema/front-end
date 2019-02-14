@@ -28,11 +28,11 @@ const SeasonPage = ({
 
   return (
     <Layout>
-      <Breadcrumbs crumbs={breadcrumbs} colorScheme={serial.id} />
+      <Breadcrumbs crumbs={breadcrumbs} theme={serial.id} />
       <div className={styles.grid}>
         {
           episodes.map(episode => (
-            <EpisodePreview {...episode} serialId={serial.id} seasonId={id} key={episode.id} colorScheme={serial.id} />
+            <EpisodePreview {...episode} serialId={serial.id} seasonId={id} key={episode.id} theme={serial.id} />
           ))
         }
       </div>

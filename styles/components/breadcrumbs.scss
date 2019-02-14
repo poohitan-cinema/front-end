@@ -1,15 +1,17 @@
 @import '../mixins/aspect-ratio';
+@import '../mixins/link';
 @import '../color-schemes';
 
 .wrapper {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 
 .crumb {
   display: flex;
   align-items: center;
-  line-height: 1em;
+  white-space: nowrap;
 
   .icon {
     @include aspect-ratio(1, 1);
@@ -19,22 +21,14 @@
     background-repeat: no-repeat;
     width: 3em;
     margin-right: 1em;
-    margin-bottom: 0.8em;
+    margin-bottom: 0.5em;
   }
 
+  @each $scheme, $color in $color-schemes {
+    .link.#{$scheme} {
+      margin: 0;
 
-  .link {
-    transition: color 100ms linear;
-    border-bottom: 8px solid transparent;
-
-    @each $scheme, $color in $color-schemes {
-      &.#{$scheme} {
-        color: $color;
-
-        &:hover {
-          border-bottom-color: $color;
-        }
-      }
+      @include link($color);
     }
   }
 
@@ -46,6 +40,6 @@
 .separator {
   font-size: 2.5em;
   font-weight: 900;
-  height: 1em;
+  height: 0.6em;
   margin: 0 0.4em;
 }

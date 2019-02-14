@@ -22,7 +22,7 @@ const SerialPage = ({
   return (
     <Layout>
       <div className={styles.heading}>
-        <Breadcrumbs crumbs={breadcrumbs} colorScheme={id} />
+        <Breadcrumbs crumbs={breadcrumbs} theme={id} />
       </div>
       <div className={styles.grid}>
         {

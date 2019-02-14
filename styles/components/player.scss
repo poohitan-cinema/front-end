@@ -1,0 +1,11 @@
+.wrapper {
+  width: 100%;
+}
+
+:global .plyr__video-wrapper {
+  height: calc(100vh - 10em);
+  display: flex;
+  justify-content: center;
+  min-height: 10em;
+  max-width: 100%;
+}

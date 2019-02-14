@@ -161,10 +161,22 @@ function getSeason({ id, serialId }) {
   return { ...season, serial: getSerial({ id: serialId }) };
 }
 
+function getEpisode({ id, serialId, seasonId }) {
+  const season = getSeason({ id: seasonId, serialId });
+  const episode = season.episodes.find(item => item.id === Number(id));
+
+  return {
+    ...episode,
+    season,
+    serial: getSerial({ id: serialId }),
+  };
+}
+
 export default {
   listSerials,
   listMovies,
   getSerial,
   getMovie,
   getSeason,
+  getEpisode,
 };

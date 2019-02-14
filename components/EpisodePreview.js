@@ -5,13 +5,13 @@ import Link from 'next/link';
 import styles from '../styles/components/episode-preview.scss';
 
 const EpisodePreview = ({
-  id, title, serialId, seasonId, colorScheme,
+  id, title, serialId, seasonId, theme,
 }) => (
   <Link
     href={`/episode?id=${id}&serialId=${serialId}&seasonId=${seasonId}`}
     as={`/serials/${serialId}/seasons/${seasonId}/episodes/${id}`}
   >
-    <a className={`${styles.wrapper} ${styles[colorScheme]}`}>
+    <a className={`${styles.wrapper} ${styles[theme]}`}>
       <h2>{`Серія ${id}`}</h2>
       {
         title && <div className={styles.title}>{title}</div>
@@ -25,12 +25,12 @@ EpisodePreview.propTypes = {
   title: PropTypes.string,
   serialId: PropTypes.string.isRequired,
   seasonId: PropTypes.number.isRequired,
-  colorScheme: PropTypes.string,
+  theme: PropTypes.string,
 };
 
 EpisodePreview.defaultProps = {
   title: '',
-  colorScheme: '',
+  theme: '',
 };
 
 export default EpisodePreview;

@@ -7,19 +7,19 @@ import styles from '../styles/components/breadcrumbs.scss';
 const Separator = () => <div className={styles.separator}>*</div>;
 
 const Crumb = ({
-  title, icon, href, as, colorScheme, disabled,
+  title, icon, href, as, theme, disabled,
 }) => (
   <div className={`${styles.crumb} ${disabled && styles.disabled}`}>
     {
       icon && <div className={styles.icon} style={{ backgroundImage: `url("${icon}")` }} />
     }
     <Link href={href} as={as}>
-      <a className={`${styles.link} ${styles[colorScheme]}`}><h1>{title}</h1></a>
+      <a><h1 className={`${styles.link} ${styles[theme]}`}>{title}</h1></a>
     </Link>
   </div>
 );
 
-const Breadcrumbs = ({ crumbs, colorScheme }) => (
+const Breadcrumbs = ({ crumbs, theme }) => (
   <div className={styles.wrapper}>
     {
       crumbs
@@ -27,7 +27,7 @@ const Breadcrumbs = ({ crumbs, colorScheme }) => (
           <Crumb
             {...crumb}
             key={crumb.title}
-            colorScheme={colorScheme}
+            theme={theme}
             disabled={index === crumbs.length - 1}
           />
         ))
@@ -41,7 +41,7 @@ Crumb.propTypes = {
   icon: PropTypes.string,
   href: PropTypes.string,
   as: PropTypes.string,
-  colorScheme: PropTypes.string,
+  theme: PropTypes.string,
   disabled: PropTypes.bool,
 };
 
@@ -49,18 +49,18 @@ Crumb.defaultProps = {
   icon: '',
   href: '',
   as: '',
-  colorScheme: '',
+  theme: '',
   disabled: false,
 };
 
 Breadcrumbs.propTypes = {
   crumbs: PropTypes.arrayOf(PropTypes.object),
-  colorScheme: PropTypes.string,
+  theme: PropTypes.string,
 };
 
 Breadcrumbs.defaultProps = {
   crumbs: [],
-  colorScheme: '',
+  theme: '',
 };
 
 export default Breadcrumbs;

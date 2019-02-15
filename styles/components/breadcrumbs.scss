@@ -1,6 +1,6 @@
 @import '../mixins/aspect-ratio';
 @import '../mixins/link';
-@import '../color-schemes';
+@import '../themes';
 
 .wrapper {
   display: flex;
@@ -24,8 +24,8 @@
     transform: translateY(-.07em);
   }
 
-  @each $scheme, $color in $color-schemes {
-    .link.#{$scheme} {
+  @each $theme, $color in $themes {
+    .link.#{$theme} {
       @include link($color);
     }
   }

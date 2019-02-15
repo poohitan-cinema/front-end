@@ -31,9 +31,11 @@ const SeasonPage = ({
       <Breadcrumbs crumbs={breadcrumbs} theme={serial.id} />
       <div className={styles.grid}>
         {
-          episodes.map(episode => (
-            <EpisodePreview {...episode} serialId={serial.id} seasonId={id} key={episode.id} theme={serial.id} />
-          ))
+          episodes.length
+            ? episodes.map(episode => (
+              <EpisodePreview {...episode} serialId={serial.id} seasonId={id} key={episode.id} theme={serial.id} />
+            ))
+            : 'Нема серій'
         }
       </div>
     </Layout>

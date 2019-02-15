@@ -12,7 +12,7 @@ const EpisodePreview = ({
     as={`/serials/${serialId}/seasons/${seasonId}/episodes/${id}`}
   >
     <a className={`${styles.wrapper} ${styles[theme]}`}>
-      <h2>{`Серія ${id}`}</h2>
+      <h2 className={styles.number}>{`Серія ${id}`}</h2>
       {
         title && <div className={styles.title}>{title}</div>
       }

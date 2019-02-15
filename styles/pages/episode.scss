@@ -2,6 +2,21 @@
   margin-top: 1em;
 
   .title {
-    margin: .5em 0;
+    margin-bottom: 1em;
+  }
+
+  .player-wrapper {
+    background-color: black;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .player {
+    $height: calc(100vh - 18em);
+
+    max-width: calc(#{$height} * 16 / 9);
+    width:  calc(#{$height} * 16 / 9);
+    min-width: 30em;
   }
 }

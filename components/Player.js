@@ -12,7 +12,10 @@ class Player extends React.Component {
   }
 
   componentDidMount() {
+    const { autoplay } = this.props;
+
     const plyr = new Plyr(this.videoElement.current, { // eslint-disable-line
+      autoplay,
       seekTime: 5,
       keyboard: {
         focused: true,
@@ -22,10 +25,10 @@ class Player extends React.Component {
   }
 
   render() {
-    const { source } = this.props;
+    const { source, theme, className } = this.props;
 
     return (
-      <div className={styles.wrapper}>
+      <div className={`${styles.wrapper} ${styles[theme]} ${className}`}>
         <video controls src={source} ref={this.videoElement} className={styles.video} />
       </div>
     );
@@ -34,6 +37,15 @@ class Player extends React.Component {
 
 Player.propTypes = {
   source: PropTypes.string.isRequired,
+  autoplay: PropTypes.bool,
+  theme: PropTypes.string,
+  className: PropTypes.string,
+};
+
+Player.defaultProps = {
+  autoplay: false,
+  theme: '',
+  className: '',
 };
 
 export default Player;

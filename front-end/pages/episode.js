@@ -5,12 +5,12 @@ import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Player from '../components/Player';
 
-import Data from '../services/data';
+import API from '../services/api';
 
 import styles from '../styles/pages/episode.scss';
 
 const EpisodePage = ({
-  id,
+  number,
   title,
   source,
   serial,
@@ -20,47 +20,55 @@ const EpisodePage = ({
     {
       icon: serial.icon,
       title: serial.title,
-      href: `/serial?id=${serial.id}`,
-      as: `/serials/${serial.id}`,
+      href: `/serial?slug=${serial.slug}`,
+      as: `/serials/${serial.slug}`,
     },
     {
-      title: `Сезон ${season.id}`,
-      href: `/season?id=${season.id}&serialId=${serial.id}`,
-      as: `/serials/${serial.id}/seasons/${season.id}`,
+      title: `Сезон ${season.number}`,
+      href: `/season?number=${season.number}&serialSlug=${serial.slug}`,
+      as: `/serials/${serial.slug}/seasons/${season.number}`,
     },
     {
-      title: `Серія ${id}`,
+      title: `Серія ${number}`,
     },
   ];
 
   return (
     <Layout>
-      <Breadcrumbs crumbs={breadcrumbs} theme={serial.id} />
+      <Breadcrumbs crumbs={breadcrumbs} theme={serial.slug} />
       <div className={styles.wrapper}>
         {
           title && <h2 className={styles.title}>{title}</h2>
         }
         <div className={styles.playerWrapper}>
-          <Player source={source} theme={serial.id} className={styles.player} />
+          <Player source={source} theme={serial.slug} className={styles.player} />
         </div>
       </div>
     </Layout>
   );
 };
 
-EpisodePage.getInitialProps = ({ query }) => {
-  const { serialId, seasonId, id } = query;
-  const episode = Data.getEpisode({ id, serialId, seasonId });
+EpisodePage.getInitialProps = async ({ query }) => {
+  const { serialSlug, seasonNumber, number } = query;
 
-  return episode;
+  const [serial] = await API.getSerials({ slug: serialSlug });
+  const [season] = await API.getSeasons({ serialId: serial.id, number: seasonNumber });
+  const [{ url: source, ...rest }] = await API.getEpisodes({ number, seasonId: season.id });
+
+  return {
+    source,
+    ...rest,
+    serial,
+    season,
+  };
 };
 
 EpisodePage.propTypes = {
-  id: PropTypes.number.isRequired,
+  number: PropTypes.number.isRequired,
   title: PropTypes.string,
   source: PropTypes.string.isRequired,
   serial: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     title: PropTypes.string,
     icon: PropTypes.string,
   }).isRequired,

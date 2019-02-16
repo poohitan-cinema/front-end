@@ -44,7 +44,7 @@ Player.propTypes = {
 
 Player.defaultProps = {
   autoplay: false,
-  theme: '',
+  theme: 'default',
   className: '',
 };
 

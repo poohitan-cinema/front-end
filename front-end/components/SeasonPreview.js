@@ -4,24 +4,28 @@ import Link from 'next/link';
 
 import styles from '../styles/components/season-preview.scss';
 
-const SeasonPreview = ({ id, cover, serialId }) => (
-  <Link href={`/season?id=${id}&serialId=${serialId}`} as={`/serials/${serialId}/seasons/${id}`}>
-    <a className={`${styles.wrapper} ${styles[serialId]}`} style={{ backgroundImage: `url("${cover}")` }}>
+const SeasonPreview = ({
+  number, cover, serialSlug, theme,
+}) => (
+  <Link href={`/season?number=${number}&serialSlug=${serialSlug}`} as={`/serials/${serialSlug}/seasons/${number}`}>
+    <a className={`${styles.wrapper} ${styles[theme]}`} style={{ backgroundImage: `url("${cover}")` }}>
       <div className={styles.content}>
-        <h2>{`Сезон ${id}`}</h2>
+        <h2>{`Сезон ${number}`}</h2>
       </div>
     </a>
   </Link>
 );
 
 SeasonPreview.propTypes = {
-  id: PropTypes.number.isRequired,
+  number: PropTypes.number.isRequired,
   cover: PropTypes.string,
-  serialId: PropTypes.string.isRequired,
+  serialSlug: PropTypes.string.isRequired,
+  theme: PropTypes.string,
 };
 
 SeasonPreview.defaultProps = {
   cover: '',
+  theme: 'default',
 };
 
 export default SeasonPreview;

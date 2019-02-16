@@ -12,24 +12,24 @@ app.prepare()
     const server = express();
     const { port } = config;
 
-    server.get('/serials/:serial_id/seasons/:season_id/episodes/:episode_id', (req, res) => {
+    server.get('/serials/:serial_slug/seasons/:season_number/episodes/:episode_number', (req, res) => {
       app.render(req, res, '/episode', {
-        serialId: req.params.serial_id,
-        seasonId: req.params.season_id,
-        id: req.params.episode_id,
+        serialSlug: req.params.serial_slug,
+        seasonNumber: req.params.season_number,
+        number: req.params.episode_number,
       });
     });
 
-    server.get('/serials/:serial_id/seasons/:season_id', (req, res) => {
+    server.get('/serials/:serial_slug/seasons/:season_number', (req, res) => {
       app.render(req, res, '/season', {
-        serialId: req.params.serial_id,
-        id: req.params.season_id,
+        serialSlug: req.params.serial_slug,
+        number: req.params.season_number,
       });
     });
 
-    server.get('/serials/:serial_id', (req, res) => {
+    server.get('/serials/:serial_slug', (req, res) => {
       app.render(req, res, '/serial', {
-        id: req.params.serial_id,
+        slug: req.params.serial_slug,
       });
     });
 

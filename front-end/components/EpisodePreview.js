@@ -5,14 +5,14 @@ import Link from 'next/link';
 import styles from '../styles/components/episode-preview.scss';
 
 const EpisodePreview = ({
-  id, title, serialId, seasonId, theme,
+  number, title, serialSlug, seasonNumber, theme,
 }) => (
   <Link
-    href={`/episode?id=${id}&serialId=${serialId}&seasonId=${seasonId}`}
-    as={`/serials/${serialId}/seasons/${seasonId}/episodes/${id}`}
+    href={`/episode?number=${number}&serialSlug=${serialSlug}&seasonNumber=${seasonNumber}`}
+    as={`/serials/${serialSlug}/seasons/${seasonNumber}/episodes/${number}`}
   >
     <a className={`${styles.wrapper} ${styles[theme]}`}>
-      <h2 className={styles.number}>{`Серія ${id}`}</h2>
+      <h2 className={styles.number}>{`Серія ${number}`}</h2>
       {
         title && <div className={styles.title}>{title}</div>
       }
@@ -21,16 +21,16 @@ const EpisodePreview = ({
 );
 
 EpisodePreview.propTypes = {
-  id: PropTypes.number.isRequired,
+  number: PropTypes.number.isRequired,
   title: PropTypes.string,
-  serialId: PropTypes.string.isRequired,
-  seasonId: PropTypes.number.isRequired,
+  serialSlug: PropTypes.string.isRequired,
+  seasonNumber: PropTypes.number.isRequired,
   theme: PropTypes.string,
 };
 
 EpisodePreview.defaultProps = {
   title: '',
-  theme: '',
+  theme: 'default',
 };
 
 export default EpisodePreview;

@@ -5,12 +5,12 @@ import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
 import EpisodePreview from '../components/EpisodePreview';
 
-import Data from '../services/data';
+import API from '../services/api';
 
 import styles from '../styles/pages/season.scss';
 
 const SeasonPage = ({
-  id,
+  number,
   episodes,
   serial,
 }) => {
@@ -18,22 +18,28 @@ const SeasonPage = ({
     {
       icon: serial.icon,
       title: serial.title,
-      href: `/serial?id=${serial.id}`,
-      as: `/serials/${serial.id}`,
+      href: `/serial?slug=${serial.slug}`,
+      as: `/serials/${serial.slug}`,
     },
     {
-      title: `Сезон ${id}`,
+      title: `Сезон ${number}`,
     },
   ];
 
   return (
     <Layout>
-      <Breadcrumbs crumbs={breadcrumbs} theme={serial.id} />
+      <Breadcrumbs crumbs={breadcrumbs} theme={serial.slug} />
       <div className={styles.grid}>
         {
           episodes.length
             ? episodes.map(episode => (
-              <EpisodePreview {...episode} serialId={serial.id} seasonId={id} key={episode.id} theme={serial.id} />
+              <EpisodePreview
+                {...episode}
+                serialSlug={serial.slug}
+                seasonNumber={number}
+                key={episode.id}
+                theme={serial.slug}
+              />
             ))
             : 'Нема серій'
         }
@@ -42,18 +48,21 @@ const SeasonPage = ({
   );
 };
 
-SeasonPage.getInitialProps = ({ query }) => {
-  const { serialId, id } = query;
-  const season = Data.getSeason({ id, serialId });
+SeasonPage.getInitialProps = async ({ query }) => {
+  const { serialSlug, number } = query;
 
-  return season;
+  const [serial] = await API.getSerials({ slug: serialSlug });
+  const [season] = await API.getSeasons({ serialId: serial.id, number });
+  const episodes = await API.getEpisodes({ seasonId: season.id });
+
+  return { ...season, serial, episodes };
 };
 
 SeasonPage.propTypes = {
-  id: PropTypes.number.isRequired,
+  number: PropTypes.number.isRequired,
   episodes: PropTypes.arrayOf(PropTypes.object),
   serial: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     title: PropTypes.string,
     icon: PropTypes.string,
   }).isRequired,

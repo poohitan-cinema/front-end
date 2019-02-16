@@ -49,7 +49,7 @@ Crumb.defaultProps = {
   icon: '',
   href: '',
   as: '',
-  theme: '',
+  theme: 'default',
   disabled: false,
 };
 
@@ -60,7 +60,7 @@ Breadcrumbs.propTypes = {
 
 Breadcrumbs.defaultProps = {
   crumbs: [],
-  theme: '',
+  theme: 'default',
 };
 
 export default Breadcrumbs;

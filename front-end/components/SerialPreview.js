@@ -4,27 +4,31 @@ import Link from 'next/link';
 
 import styles from '../styles/components/serial-preview.scss';
 
-const SerialPreview = ({ id, title, cover }) => (
-  <Link href={`/serial?id=${id}`} as={`/serials/${id}`}>
-    <a className={`${styles.wrapper} ${styles[id]}`}>
-      <div className={styles.coverContainer}>
-        <div className={styles.cover} style={{ backgroundImage: `url("${cover}")` }} />
-      </div>
-      <div className={styles.content}>
-        <h2>{title}</h2>
+const SerialPreview = ({
+  slug, title, cover, theme,
+}) => (
+  <Link href={`/serial?slug=${slug}`} as={`/serials/${slug}`}>
+    <a className={`${styles.wrapper} ${styles[theme]}`}>
+      <div className={styles.cover} style={{ backgroundImage: `url("${cover}")` }} />
+      <div className={styles.contentWrapper}>
+        <div className={styles.content}>
+          <h2>{title}</h2>
+        </div>
       </div>
     </a>
   </Link>
 );
 
 SerialPreview.propTypes = {
-  id: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   cover: PropTypes.string,
+  theme: PropTypes.string,
 };
 
 SerialPreview.defaultProps = {
   cover: '',
+  theme: 'default',
 };
 
 export default SerialPreview;

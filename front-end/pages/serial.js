@@ -5,12 +5,12 @@ import Layout from '../components/Layout';
 import SeasonPreview from '../components/SeasonPreview';
 import Breadcrumbs from '../components/Breadcrumbs';
 
-import Data from '../services/data';
+import API from '../services/api';
 
 import styles from '../styles/pages/serial.scss';
 
 const SerialPage = ({
-  title, id, icon, seasons,
+  slug, title, icon, seasons,
 }) => {
   const breadcrumbs = [
     {
@@ -22,26 +22,29 @@ const SerialPage = ({
   return (
     <Layout>
       <div className={styles.heading}>
-        <Breadcrumbs crumbs={breadcrumbs} theme={id} />
+        <Breadcrumbs crumbs={breadcrumbs} theme={slug} />
       </div>
       <div className={styles.grid}>
         {
-          seasons.map(season => <SeasonPreview {...season} serialId={id} key={season.id} />)
+          seasons.length
+            ? seasons.map(season => <SeasonPreview {...season} serialSlug={slug} theme={slug} key={season.id} />)
+            : 'Нема сезонів'
         }
       </div>
     </Layout>
   );
 };
 
-SerialPage.getInitialProps = ({ query }) => {
-  const { id } = query;
-  const serial = Data.getSerial({ id });
+SerialPage.getInitialProps = async ({ query }) => {
+  const { slug } = query;
+  const [serial] = await API.getSerials({ slug });
+  const seasons = await API.getSeasons({ serialId: serial.id });
 
-  return serial;
+  return { ...serial, seasons };
 };
 
 SerialPage.propTypes = {
-  id: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   icon: PropTypes.string,
   seasons: PropTypes.arrayOf(PropTypes.object).isRequired,

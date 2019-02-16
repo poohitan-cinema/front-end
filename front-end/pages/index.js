@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 import SerialPreview from '../components/SerialPreview';
 import MoviePreview from '../components/MoviePreview';
 
-import Data from '../services/data';
+import API from '../services/api';
 
 import styles from '../styles/pages/index.scss';
 
@@ -16,7 +16,7 @@ const IndexPage = ({ serials, movies }) => (
       <div className={styles.grid}>
         {
           serials.length
-            ? serials.map(serial => <SerialPreview {...serial} key={serial.id} />)
+            ? serials.map(serial => <SerialPreview {...serial} theme={serial.slug} key={serial.id} />)
             : 'Нема серіалів'
         }
       </div>
@@ -35,11 +35,10 @@ const IndexPage = ({ serials, movies }) => (
   </Layout>
 );
 
-IndexPage.getInitialProps = () => {
-  const serials = Data.listSerials();
-  const movies = Data.listMovies();
+IndexPage.getInitialProps = async () => {
+  const serials = await API.getSerials();
 
-  return { movies, serials };
+  return { movies: [], serials };
 };
 
 IndexPage.propTypes = {

@@ -5,9 +5,9 @@ import Link from 'next/link';
 import styles from '../styles/components/movie-serial-preview.scss';
 
 const MovieSerialPreview = ({
-  slug, title, cover, theme, type
+  slug, title, cover, theme, type,
 }) => (
-  <Link href={`/${type}?slug=${slug}`} as={`/${type}s/${slug}`}>
+  <Link href={`/${type}?slug=${slug}`} as={`/${type}s/${slug}`} prefetch>
     <a className={`${styles.wrapper} ${styles[theme]}`}>
       <div className={styles.cover} style={{ backgroundImage: `url("${cover}")` }} />
       <div className={styles.contentWrapper}>
@@ -29,7 +29,7 @@ MovieSerialPreview.propTypes = {
 
 MovieSerialPreview.defaultProps = {
   cover: '',
-  theme: 'default',
+  theme: '',
 };
 
 export default MovieSerialPreview;

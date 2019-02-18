@@ -13,7 +13,7 @@ const Crumb = ({
     {
       icon && <div className={styles.icon} style={{ backgroundImage: `url("${icon}")` }} />
     }
-    <Link href={href} as={as}>
+    <Link href={href} as={as} prefetch>
       <a className={`${styles.link} ${styles[theme]}`}>{title}</a>
     </Link>
   </h1>
@@ -49,7 +49,7 @@ Crumb.defaultProps = {
   icon: '',
   href: '',
   as: '',
-  theme: 'default',
+  theme: '',
   disabled: false,
 };
 
@@ -60,7 +60,7 @@ Breadcrumbs.propTypes = {
 
 Breadcrumbs.defaultProps = {
   crumbs: [],
-  theme: 'default',
+  theme: '',
 };
 
 export default Breadcrumbs;

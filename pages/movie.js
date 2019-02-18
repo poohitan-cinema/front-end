@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
+import { parseCookies } from 'nookies';
 
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -40,14 +42,22 @@ const MoviePage = ({
   );
 };
 
-MoviePage.getInitialProps = async ({ query }) => {
+MoviePage.getInitialProps = async ({ req, res, query }) => {
   const { movieSlug } = query;
-  const [{ url: source, ...rest }] = await API.getMovies({ slug: movieSlug });
+  const cookies = parseCookies({ req });
 
-  return {
-    source,
-    ...rest,
-  };
+  try {
+    const [{ url: source, ...rest }] = await API.getMovies({ slug: movieSlug }, { cookies });
+
+    return {
+      source,
+      ...rest,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return global.window ? Router.replace('/login') : res.redirect('/login');
+  }
 };
 
 MoviePage.propTypes = {
@@ -60,6 +70,7 @@ MoviePage.propTypes = {
 
 MoviePage.defaultProps = {
   description: '',
+  icon: '',
 };
 
 export default MoviePage;

@@ -25,7 +25,7 @@ SeasonPreview.propTypes = {
 
 SeasonPreview.defaultProps = {
   cover: '',
-  theme: 'default',
+  theme: '',
 };
 
 export default SeasonPreview;

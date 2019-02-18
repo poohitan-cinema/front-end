@@ -30,7 +30,7 @@ EpisodePreview.propTypes = {
 
 EpisodePreview.defaultProps = {
   title: '',
-  theme: 'default',
+  theme: '',
 };
 
 export default EpisodePreview;

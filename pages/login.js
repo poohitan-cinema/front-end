@@ -1,4 +1,6 @@
 import React from 'react';
+import cookies from 'nookies';
+import Router from 'next/router';
 
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -8,6 +10,14 @@ import API from '../services/api';
 import styles from '../styles/pages/login.scss';
 
 class LoginPage extends React.Component {
+  static async getInitialProps({ req, res }) {
+    const { token } = cookies.get({ req });
+
+    if (token) {
+      res.redirect('/');
+    }
+  }
+
   constructor(props) {
     super(props);
 
@@ -21,14 +31,20 @@ class LoginPage extends React.Component {
 
     this.setState({ loginInProgress: true });
 
-    const response = await API.login({ password });
+    try {
+      const { token } = await API.login({ password });
 
-    this.setState({ loginInProgress: false });
+      if (token) {
+        cookies.set({}, 'token', token);
 
-    if (response.success) {
-      console.log('logged in successfully');
-    } else {
-      console.log('login failed');
+        Router.push('/');
+      } else {
+        window.alert('Неправильний пароль');
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.setState({ loginInProgress: false });
     }
   }
 

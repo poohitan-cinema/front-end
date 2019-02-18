@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-unfetch';
 import queryString from 'query-string';
 
+
 export default async function request(params) {
   const {
     url,
@@ -9,6 +10,7 @@ export default async function request(params) {
     headers = {},
     body,
     formData,
+    cookies = {},
   } = params;
   let requestUrl = url;
 
@@ -16,7 +18,19 @@ export default async function request(params) {
     requestUrl += `?${queryString.stringify(query)}`;
   }
 
-  const defaultHeaders = formData ? {} : { 'Content-Type': 'application/json' };
+  const defaultHeaders = {};
+
+  if (!formData) {
+    defaultHeaders['Content-Type'] = 'application/json';
+  }
+
+  if (cookies) {
+    defaultHeaders.Cookie = Object.keys(cookies).reduce((string, cookieName) => {
+      const cookieValue = cookies[cookieName];
+
+      return `${string}; ${cookieName}=${cookieValue}`;
+    }, '');
+  }
 
   const response = await fetch(requestUrl, {
     method,

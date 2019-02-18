@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
+import { parseCookies } from 'nookies';
 
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -48,19 +50,26 @@ const EpisodePage = ({
   );
 };
 
-EpisodePage.getInitialProps = async ({ query }) => {
+EpisodePage.getInitialProps = async ({ req, res, query }) => {
   const { serialSlug, seasonNumber, number } = query;
+  const cookies = parseCookies({ req });
 
-  const [serial] = await API.getSerials({ slug: serialSlug });
-  const [season] = await API.getSeasons({ serialId: serial.id, number: seasonNumber });
-  const [{ url: source, ...rest }] = await API.getEpisodes({ number, seasonId: season.id });
+  try {
+    const [serial] = await API.getSerials({ slug: serialSlug }, { cookies });
+    const [season] = await API.getSeasons({ serialId: serial.id, number: seasonNumber }, { cookies });
+    const [{ url: source, ...rest }] = await API.getEpisodes({ number, seasonId: season.id }, { cookies });
 
-  return {
-    source,
-    ...rest,
-    serial,
-    season,
-  };
+    return {
+      source,
+      ...rest,
+      serial,
+      season,
+    };
+  } catch (error) {
+    console.error(error);
+
+    return global.window ? Router.replace('/login') : res.redirect('/login');
+  }
 };
 
 EpisodePage.propTypes = {

@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
+import { parseCookies } from 'nookies';
 import Layout from '../components/Layout';
 
 import MovieSerialPreview from '../components/MovieSerialPreview';
@@ -34,11 +36,19 @@ const IndexPage = ({ serials, movies }) => (
   </Layout>
 );
 
-IndexPage.getInitialProps = async () => {
-  const serials = await API.getSerials();
-  const movies = await API.getMovies();
+IndexPage.getInitialProps = async ({ req, res }) => {
+  const cookies = parseCookies({ req });
 
-  return { movies, serials };
+  try {
+    const serials = await API.getSerials({}, { cookies });
+    const movies = await API.getMovies({}, { cookies });
+
+    return { movies, serials };
+  } catch (error) {
+    console.error(error);
+
+    return global.window ? Router.replace('/login') : res.redirect('/login');
+  }
 };
 
 IndexPage.propTypes = {

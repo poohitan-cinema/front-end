@@ -11,33 +11,18 @@ async function login({ password }) {
   });
 }
 
-async function getSerials(query = {}) {
+async function getResource(endpoint, query, { cookies }) {
   return request({
-    url: `${apiURL}/serials`,
+    url: `${apiURL}/${endpoint}`,
     query,
+    cookies,
   });
 }
 
-async function getSeasons(query = {}) {
-  return request({
-    url: `${apiURL}/seasons`,
-    query,
-  });
-}
-
-async function getEpisodes(query = {}) {
-  return request({
-    url: `${apiURL}/episodes`,
-    query,
-  });
-}
-
-async function getMovies(query = {}) {
-  return request({
-    url: `${apiURL}/movies`,
-    query,
-  });
-}
+const getSerials = (...params) => getResource('serials', ...params);
+const getEpisodes = (...params) => getResource('episodes', ...params);
+const getSeasons = (...params) => getResource('seasons', ...params);
+const getMovies = (...params) => getResource('movies', ...params);
 
 export default {
   login,

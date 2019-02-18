@@ -1,0 +1,25 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 60%;
+  max-width: 800px;
+  padding: 2em;
+
+  .password-input {
+    max-width: 10em;
+    margin-bottom: .5em;
+  }
+}

@@ -1,0 +1,13 @@
+@mixin input {
+  font-family: 'Source Sans Pro', Helvetica, sans-serif;
+  font-size: .8em;
+  font-weight: 200;
+  line-height: 1.2em;
+
+  box-shadow: none;
+  outline: none;
+  border: .15em solid transparent;
+  border-radius: 2em;
+
+  padding: .5em .9em;
+}

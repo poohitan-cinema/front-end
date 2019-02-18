@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Layout from '../components/Layout';
 
-import SerialPreview from '../components/SerialPreview';
-import MoviePreview from '../components/MoviePreview';
+import MovieSerialPreview from '../components/MovieSerialPreview';
 
 import API from '../services/api';
 
@@ -16,7 +15,7 @@ const IndexPage = ({ serials, movies }) => (
       <div className={styles.grid}>
         {
           serials.length
-            ? serials.map(serial => <SerialPreview {...serial} theme={serial.slug} key={serial.id} />)
+            ? serials.map(serial => <MovieSerialPreview type="serial" {...serial} theme={serial.slug} key={serial.id} />)
             : 'Нема серіалів'
         }
       </div>
@@ -27,7 +26,7 @@ const IndexPage = ({ serials, movies }) => (
       <div className={styles.grid}>
         {
           movies.length
-            ? movies.map(movie => <MoviePreview {...movie} theme={movie.slug} key={movie.id} />)
+            ? movies.map(movie => <MovieSerialPreview type="movie" {...movie} theme={movie.slug} key={movie.id} />)
             : 'Нема фільмів'
         }
       </div>

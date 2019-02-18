@@ -1,0 +1,41 @@
+@import '../mixins/input';
+@import '../variables';
+
+.button {
+  @include input;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 6em;
+
+  cursor: pointer;
+  transition: all 100ms linear;
+
+  .icon {
+    color: $dark-grey;
+    font-size: .7em;
+    margin-right: .7em;
+  }
+
+  &:hover {
+    background-color: $grey;
+    border-color: $grey;
+    color: $white;
+
+    .icon {
+      color: $white;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    background-color: $grey;
+    color: transparentize($dark-grey, .5);
+
+    .icon {
+      color: transparentize($dark-grey, .5);
+    }
+  }
+}

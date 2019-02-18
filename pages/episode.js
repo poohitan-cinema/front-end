@@ -7,7 +7,7 @@ import Player from '../components/Player';
 
 import API from '../services/api';
 
-import styles from '../styles/pages/episode.scss';
+import styles from '../styles/pages/movie.scss';
 
 const EpisodePage = ({
   number,

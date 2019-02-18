@@ -1,6 +1,8 @@
 import request from '../utils/request';
 import { apiURL } from '../config';
 
+
+
 async function getSerials(query = {}) {
   return request({
     url: `${apiURL}/serials`,
@@ -22,8 +24,16 @@ async function getEpisodes(query = {}) {
   });
 }
 
+async function getMovies(query = {}) {
+  return request({
+    url: `${apiURL}/movies`,
+    query,
+  });
+}
+
 export default {
   getSerials,
   getSeasons,
   getEpisodes,
+  getMovies,
 };

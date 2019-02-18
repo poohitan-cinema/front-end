@@ -27,7 +27,7 @@ const IndexPage = ({ serials, movies }) => (
       <div className={styles.grid}>
         {
           movies.length
-            ? movies.map(movie => <MoviePreview {...movie} key={movie.id} />)
+            ? movies.map(movie => <MoviePreview {...movie} theme={movie.slug} key={movie.id} />)
             : 'Нема фільмів'
         }
       </div>
@@ -37,8 +37,9 @@ const IndexPage = ({ serials, movies }) => (
 
 IndexPage.getInitialProps = async () => {
   const serials = await API.getSerials();
+  const movies = await API.getMovies();
 
-  return { movies: [], serials };
+  return { movies, serials };
 };
 
 IndexPage.propTypes = {

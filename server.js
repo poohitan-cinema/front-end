@@ -33,6 +33,12 @@ app.prepare()
       });
     });
 
+    server.get('/movies/:movie_slug', (req, res) => {
+      app.render(req, res, '/movie', {
+        slug: req.params.movie_slug,
+      });
+    });
+
     server.get('*', (req, res) => handle(req, res));
 
     server.listen(port, (error) => {

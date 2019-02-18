@@ -1,3 +1,5 @@
+@import '../variables';
+
 .wrapper {
   margin-top: 1em;
 
@@ -18,5 +20,11 @@
     max-width: calc(#{$height} * 16 / 9);
     width:  calc(#{$height} * 16 / 9);
     min-width: 30em;
+  }
+
+  .description {
+    margin: 1em 0;
+    line-height: 1.4em;
+    color: $light-grey;
   }
 }

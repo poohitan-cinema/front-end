@@ -9,6 +9,7 @@ const shared = {
   digitalOcean: {
     space: 'https://poohitan-com.ams3.cdn.digitaloceanspaces.com/cinema',
   },
+  pageTitle: 'Кінотеатр',
 };
 
 const config = {

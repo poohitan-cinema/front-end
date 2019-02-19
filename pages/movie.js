@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
+import Head from 'next/head';
 import { parseCookies, destroyCookie } from 'nookies';
+
+import config from '../config';
 
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -29,6 +32,7 @@ const MoviePage = ({
 
   return (
     <Layout>
+      <Head><title>{`${title} / ${config.pageTitle}`}</title></Head>
       <Breadcrumbs crumbs={breadcrumbs} theme={slug} />
       <div className={styles.wrapper}>
         <div className={styles.playerWrapper}>

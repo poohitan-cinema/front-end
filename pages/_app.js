@@ -1,6 +1,9 @@
 import React from 'react';
 import App, { Container } from 'next/app';
-import styles from '../styles/global.scss';
+import Head from 'next/head';
+
+import config from '../config';
+import '../styles/global.scss';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -13,15 +16,16 @@ class MyApp extends App {
     return { pageProps };
   }
 
-  render () {
+  render() {
     const { Component, pageProps } = this.props;
 
     return (
       <Container>
+        <Head><title>{config.pageTitle}</title></Head>
         <Component {...pageProps} />
       </Container>
     );
   }
 }
 
-export default MyApp
+export default MyApp;

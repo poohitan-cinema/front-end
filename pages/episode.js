@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
+import Head from 'next/head';
 import { parseCookies, destroyCookie } from 'nookies';
+
+import config from '../config';
 
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -37,6 +40,7 @@ const EpisodePage = ({
 
   return (
     <Layout>
+      <Head><title>{`${serial.title} – Cезон ${season.number}, Cерія ${number} / ${config.pageTitle}`}</title></Head>
       <Breadcrumbs crumbs={breadcrumbs} theme={serial.slug} />
       <div className={styles.wrapper}>
         {

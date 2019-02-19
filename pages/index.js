@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { parseCookies, destroyCookie } from 'nookies';
-import Layout from '../components/Layout';
 
+import Layout from '../components/Layout';
 import MovieSerialPreview from '../components/MovieSerialPreview';
 
 import API from '../services/api';

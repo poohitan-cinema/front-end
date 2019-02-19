@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
+import Head from 'next/head';
 import { parseCookies, destroyCookie } from 'nookies';
+
+import config from '../config';
 
 import Layout from '../components/Layout';
 import SeasonPreview from '../components/SeasonPreview';
@@ -23,6 +26,7 @@ const SerialPage = ({
 
   return (
     <Layout>
+      <Head><title>{`${title} / ${config.pageTitle}`}</title></Head>
       <div className={styles.heading}>
         <Breadcrumbs crumbs={breadcrumbs} theme={slug} />
       </div>

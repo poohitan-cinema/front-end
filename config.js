@@ -13,7 +13,17 @@ const config = {
     apiURL: 'http://localhost:7400',
   },
   production: {
-    apiURL: 'https://cinema.poohitan.com/api',
+    apiURL: 'http://api.cinema.poohitan.com',
+
+    server: {
+      host: '46.101.99.203',
+      username: 'poohitan',
+      folder: '~/poohitan.com/cinema/front-end',
+    },
+
+    repository: 'git@github.com:poohitan-cinema/front-end.git',
+
+    appName: 'cinema',
   },
 };
 

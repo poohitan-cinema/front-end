@@ -1,11 +1,14 @@
 .wrapper {
   width: 100vw;
   height: 100vh;
+  padding: 2em;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  text-align: center;
 }
 
 .login-form {
@@ -19,6 +22,7 @@
   padding: 2em;
 
   .password-input {
+    min-width: 5em;
     max-width: 10em;
     margin-bottom: .5em;
   }

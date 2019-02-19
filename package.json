@@ -23,7 +23,8 @@
     "plyr": "^3.4.8",
     "query-string": "^6.2.0",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "yargs": "^13.2.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

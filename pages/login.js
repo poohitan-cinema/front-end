@@ -27,8 +27,6 @@ class LoginPage extends React.Component {
       const { token } = await API.login({ password });
 
       if (token) {
-        cookies.set({}, 'token', token);
-
         Router.push('/');
       } else {
         window.alert('Неправильний пароль');

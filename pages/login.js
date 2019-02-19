@@ -10,14 +10,6 @@ import API from '../services/api';
 import styles from '../styles/pages/login.scss';
 
 class LoginPage extends React.Component {
-  static async getInitialProps({ req, res }) {
-    const { token } = cookies.get({ req });
-
-    if (token) {
-      res.redirect('/');
-    }
-  }
-
   constructor(props) {
     super(props);
 
@@ -65,7 +57,7 @@ class LoginPage extends React.Component {
             onChange={enteredPassword => this.setState({ password: enteredPassword })}
             className={styles.passwordInput}
           />
-          <Button icon="fas fa-lock" disabled={loginInProgress} onClick={this.login}>Увійти</Button>
+          <Button disabled={loginInProgress} onClick={this.login}>Увійти</Button>
         </div>
       </div>
     );

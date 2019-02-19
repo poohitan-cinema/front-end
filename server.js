@@ -39,6 +39,12 @@ app.prepare()
       });
     });
 
+    server.get(['/images/*', '/videos/*'], (req, res) => {
+      const { url } = req;
+
+      res.redirect(`${config.digitalOcean.space}${url}`);
+    });
+
     server.get('*', (req, res) => handle(req, res));
 
     server.listen(port, (error) => {

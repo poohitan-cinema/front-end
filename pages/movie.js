@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import { parseCookies } from 'nookies';
+import { parseCookies, destroyCookie } from 'nookies';
 
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -55,6 +55,7 @@ MoviePage.getInitialProps = async ({ req, res, query }) => {
     };
   } catch (error) {
     console.error(error);
+    destroyCookie({ req }, 'token');
 
     return global.window ? Router.replace('/login') : res.redirect('/login');
   }

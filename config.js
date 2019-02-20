@@ -27,7 +27,13 @@ const config = {
 
     repository: 'git@github.com:poohitan-cinema/front-end.git',
 
-    appName: 'cinema',
+    deploy: {
+      appName: 'cinema',
+    },
+
+    google: {
+      analyticsTrackingId: 'UA-10797087-21',
+    },
   },
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import Head from 'next/head';
+import Link from 'next/link';
 import { parseCookies, destroyCookie } from 'nookies';
 
 import config from '../config';
@@ -9,15 +10,16 @@ import config from '../config';
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Player from '../components/Player';
+import Button from '../components/Button';
 
 import API from '../services/api';
 
 import styles from '../styles/pages/movie.scss';
 
 const EpisodePage = ({
-  number,
-  title,
-  source,
+  episode,
+  previousEpisode,
+  nextEpisode,
   serial,
   season,
 }) => {
@@ -34,20 +36,46 @@ const EpisodePage = ({
       as: `/serials/${serial.slug}/seasons/${season.number}`,
     },
     {
-      title: `Серія ${number}`,
+      title: `Серія ${episode.number}`,
     },
   ];
 
+  const previousEpisodeLink = previousEpisode
+    ? (
+      <Link
+        href={`/episode?number=${previousEpisode.number}&serialSlug=${serial.slug}&seasonNumber=${season.number}`}
+        as={`/serials/${serial.slug}/seasons/${season.number}/episodes/${previousEpisode.number}`}
+      >
+        <a><Button light theme={serial.slug}>Попередня серія</Button></a>
+      </Link>
+    )
+    : <div />;
+
+  const nextEpisodeLink = nextEpisode
+    ? (
+      <Link
+        href={`/episode?number=${nextEpisode.number}&serial.slug=${serial.slug}&seasonNumber=${season.number}`}
+        as={`/serials/${serial.slug}/seasons/${season.number}/episodes/${nextEpisode.number}`}
+      >
+        <a><Button light theme={serial.slug}>Наступна серія</Button></a>
+      </Link>
+    )
+    : <div />;
+
   return (
     <Layout>
-      <Head><title>{`${serial.title} – Cезон ${season.number}, Cерія ${number} / ${config.pageTitle}`}</title></Head>
+      <Head><title>{`${serial.title} – Cезон ${season.number}, Cерія ${episode.number} / ${config.pageTitle}`}</title></Head>
       <Breadcrumbs crumbs={breadcrumbs} theme={serial.slug} />
-      <div className={styles.wrapper}>
+      <div className={`${styles.wrapper} ${styles[serial.slug]}`}>
         {
-          title && <h2 className={styles.title}>{title}</h2>
+          episode.title && <h2 className={styles.title}>{episode.title}</h2>
         }
         <div className={styles.playerWrapper}>
-          <Player source={source} theme={serial.slug} className={styles.player} />
+          <Player source={episode.url} theme={serial.slug} className={styles.player} />
+        </div>
+        <div className={styles.footer}>
+          { previousEpisodeLink }
+          { nextEpisodeLink }
         </div>
       </div>
     </Layout>
@@ -61,11 +89,14 @@ EpisodePage.getInitialProps = async ({ req, res, query }) => {
   try {
     const [serial] = await API.getSerials({ slug: serialSlug }, { cookies });
     const [season] = await API.getSeasons({ serialId: serial.id, number: seasonNumber }, { cookies });
-    const [{ url: source, ...rest }] = await API.getEpisodes({ number, seasonId: season.id }, { cookies });
+    const [episode] = await API.getEpisodes({ number, seasonId: season.id }, { cookies });
+    const [previousEpisode] = await API.getEpisodes({ number: Number(number) - 1, seasonId: season.id }, { cookies });
+    const [nextEpisode] = await API.getEpisodes({ number: Number(number) + 1, seasonId: season.id }, { cookies });
 
     return {
-      source,
-      ...rest,
+      episode,
+      previousEpisode,
+      nextEpisode,
       serial,
       season,
     };
@@ -78,9 +109,17 @@ EpisodePage.getInitialProps = async ({ req, res, query }) => {
 };
 
 EpisodePage.propTypes = {
-  number: PropTypes.number.isRequired,
-  title: PropTypes.string,
-  source: PropTypes.string.isRequired,
+  episode: PropTypes.shape({
+    number: PropTypes.number.isRequired,
+    title: PropTypes.string,
+    source: PropTypes.string.isRequired,
+  }).isRequired,
+  previousEpisode: PropTypes.shape({
+    number: PropTypes.number,
+  }),
+  nextEpisode: PropTypes.shape({
+    number: PropTypes.number,
+  }),
   serial: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
@@ -92,7 +131,8 @@ EpisodePage.propTypes = {
 };
 
 EpisodePage.defaultProps = {
-  title: '',
+  previousEpisode: null,
+  nextEpisode: null,
 };
 
 export default EpisodePage;

@@ -1,5 +1,6 @@
 @import '../mixins/input';
 @import '../variables';
+@import '../themes';
 
 .button {
   @include input;
@@ -36,6 +37,33 @@
 
     .icon {
       color: transparentize($dark-grey, .5);
+    }
+  }
+
+  &.light {
+    border-color: $grey;
+    background-color: transparent;
+    color: $grey;
+
+    &:hover {
+      border-color: $light-grey;
+      background-color: transparent;
+      color: $light-grey;
+    }
+  }
+
+  @each $theme, $color in $themes {
+    &.#{$theme} {
+      &:hover {
+        background-color: $color;
+        border-color: $color;
+      }
+
+      &.light:hover {
+        border-color: $color;
+        background-color: transparent;
+        color: $color;
+      }
     }
   }
 }

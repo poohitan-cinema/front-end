@@ -9,12 +9,17 @@ const Button = ({
   theme,
   icon,
   disabled,
+  light,
   onClick,
 }) => {
   const classList = [styles.button, styles[theme]];
 
   if (disabled) {
     classList.push(styles.disabled);
+  }
+
+  if (light) {
+    classList.push(styles.light);
   }
 
   return (
@@ -40,7 +45,8 @@ Button.propTypes = {
   theme: PropTypes.string,
   icon: PropTypes.string,
   disabled: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
+  light: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
@@ -49,6 +55,8 @@ Button.defaultProps = {
   icon: '',
   children: null,
   disabled: false,
+  light: false,
+  onClick: () => {},
 };
 
 export default Button;

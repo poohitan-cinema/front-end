@@ -4,6 +4,8 @@
   color: $color;
   transition: color 100ms linear;
   position: relative;
+  display: inline-block;
+  cursor: pointer;
 
   &::after {
     content: '';

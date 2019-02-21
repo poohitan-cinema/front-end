@@ -15,6 +15,8 @@ const shared = {
 const config = {
   development: {
     apiURL: 'http://localhost:7400',
+
+    google: {},
   },
   production: {
     apiURL: 'http://api.cinema.poohitan.com',

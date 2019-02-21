@@ -14,7 +14,7 @@ class Player extends React.Component {
   componentDidMount() {
     const { autoplay } = this.props;
 
-    const plyr = new Plyr(this.videoElement.current, { // eslint-disable-line
+    const player = new Plyr(this.videoElement.current, { // eslint-disable-line
       autoplay,
       seekTime: 5,
       keyboard: {
@@ -22,6 +22,14 @@ class Player extends React.Component {
         global: true,
       },
     });
+
+    this.setState({ player });
+  }
+
+  componentWillUnmount() {
+    const { player } = this.state;
+
+    player.destroy();
   }
 
   render() {

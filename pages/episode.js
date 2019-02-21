@@ -45,6 +45,7 @@ const EpisodePage = ({
       <Link
         href={`/episode?number=${previousEpisode.number}&serialSlug=${serial.slug}&seasonNumber=${season.number}`}
         as={`/serials/${serial.slug}/seasons/${season.number}/episodes/${previousEpisode.number}`}
+        prefetch
       >
         <a><Button light theme={serial.slug}>Попередня серія</Button></a>
       </Link>
@@ -56,6 +57,7 @@ const EpisodePage = ({
       <Link
         href={`/episode?number=${nextEpisode.number}&serial.slug=${serial.slug}&seasonNumber=${season.number}`}
         as={`/serials/${serial.slug}/seasons/${season.number}/episodes/${nextEpisode.number}`}
+        prefetch
       >
         <a><Button light theme={serial.slug}>Наступна серія</Button></a>
       </Link>
@@ -71,7 +73,9 @@ const EpisodePage = ({
           episode.title && <h2 className={styles.title}>{episode.title}</h2>
         }
         <div className={styles.playerWrapper}>
-          <Player source={episode.url} theme={serial.slug} className={styles.player} />
+          {
+            episode.url ? <Player source={episode.url} theme={serial.slug} className={styles.player} /> : 'Цієї серії ше немає'
+          }
         </div>
         <div className={styles.footer}>
           { previousEpisodeLink }
@@ -112,7 +116,7 @@ EpisodePage.propTypes = {
   episode: PropTypes.shape({
     number: PropTypes.number.isRequired,
     title: PropTypes.string,
-    source: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
   }).isRequired,
   previousEpisode: PropTypes.shape({
     number: PropTypes.number,

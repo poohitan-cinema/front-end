@@ -13,6 +13,11 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+
+    $height: calc(100vh - 12em);
+    height: $height;
+    min-height: 5em;
   }
 
   .player {

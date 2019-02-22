@@ -59,11 +59,9 @@ SeasonPage.getInitialProps = async ({ req, res, query }) => {
   const cookies = parseCookies({ req });
 
   try {
-    const [serial] = await API.getSerials({ slug: serialSlug }, { cookies });
-    const [season] = await API.getSeasons({ serialId: serial.id, number }, { cookies });
-    const episodes = await API.getEpisodes({ seasonId: season.id }, { cookies });
+    const season = await API.getSeason({ number, serialSlug }, { cookies });
 
-    return { ...season, serial, episodes };
+    return season;
   } catch (error) {
     console.error(error);
     destroyCookie({ req }, 'token');

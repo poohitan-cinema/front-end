@@ -18,7 +18,7 @@ const MoviePage = ({
   title,
   description,
   icon,
-  source,
+  url,
   slug,
 }) => {
   const breadcrumbs = [
@@ -36,7 +36,7 @@ const MoviePage = ({
       <Breadcrumbs crumbs={breadcrumbs} theme={slug} />
       <div className={styles.wrapper}>
         <div className={styles.playerWrapper}>
-          <Player source={source} theme={slug} className={styles.player} />
+          <Player source={url} theme={slug} className={styles.player} />
         </div>
         {
           description && <div className={styles.description}>{description}</div>
@@ -51,12 +51,9 @@ MoviePage.getInitialProps = async ({ req, res, query }) => {
   const cookies = parseCookies({ req });
 
   try {
-    const [{ url: source, ...rest }] = await API.getMovies({ slug: movieSlug }, { cookies });
+    const [movie] = await API.getMovies({ slug: movieSlug }, { cookies });
 
-    return {
-      source,
-      ...rest,
-    };
+    return movie;
   } catch (error) {
     console.error(error);
     destroyCookie({ req }, 'token');
@@ -70,7 +67,7 @@ MoviePage.propTypes = {
   description: PropTypes.string,
   slug: PropTypes.string.isRequired,
   icon: PropTypes.string,
-  source: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 MoviePage.defaultProps = {

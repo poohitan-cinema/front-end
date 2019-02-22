@@ -17,7 +17,9 @@ import API from '../services/api';
 import styles from '../styles/pages/movie.scss';
 
 const EpisodePage = ({
-  episode,
+  number,
+  title,
+  url,
   previousEpisode,
   nextEpisode,
   serial,
@@ -36,7 +38,7 @@ const EpisodePage = ({
       as: `/serials/${serial.slug}/seasons/${season.number}`,
     },
     {
-      title: `Серія ${episode.number}`,
+      title: `Серія ${number}`,
     },
   ];
 
@@ -55,7 +57,7 @@ const EpisodePage = ({
   const nextEpisodeLink = nextEpisode
     ? (
       <Link
-        href={`/episode?number=${nextEpisode.number}&serial.slug=${serial.slug}&seasonNumber=${season.number}`}
+        href={`/episode?number=${nextEpisode.number}&serialSlug=${serial.slug}&seasonNumber=${season.number}`}
         as={`/serials/${serial.slug}/seasons/${season.number}/episodes/${nextEpisode.number}`}
         prefetch
       >
@@ -66,15 +68,15 @@ const EpisodePage = ({
 
   return (
     <Layout>
-      <Head><title>{`${serial.title} – Cезон ${season.number}, Cерія ${episode.number} / ${config.pageTitle}`}</title></Head>
+      <Head><title>{`${serial.title} – Cезон ${season.number}, Cерія ${number} / ${config.pageTitle}`}</title></Head>
       <Breadcrumbs crumbs={breadcrumbs} theme={serial.slug} />
       <div className={`${styles.wrapper} ${styles[serial.slug]}`}>
         {
-          episode.title && <h2 className={styles.title}>{episode.title}</h2>
+          title && <h2 className={styles.title}>{title}</h2>
         }
         <div className={styles.playerWrapper}>
           {
-            episode.url ? <Player source={episode.url} theme={serial.slug} className={styles.player} /> : 'Цієї серії ше немає'
+            url ? <Player source={url} theme={serial.slug} className={styles.player} /> : 'Цієї серії ше немає'
           }
         </div>
         <div className={styles.footer}>
@@ -91,19 +93,9 @@ EpisodePage.getInitialProps = async ({ req, res, query }) => {
   const cookies = parseCookies({ req });
 
   try {
-    const [serial] = await API.getSerials({ slug: serialSlug }, { cookies });
-    const [season] = await API.getSeasons({ serialId: serial.id, number: seasonNumber }, { cookies });
-    const [episode] = await API.getEpisodes({ number, seasonId: season.id }, { cookies });
-    const [previousEpisode] = await API.getEpisodes({ number: Number(number) - 1, seasonId: season.id }, { cookies });
-    const [nextEpisode] = await API.getEpisodes({ number: Number(number) + 1, seasonId: season.id }, { cookies });
+    const episode = await API.getEpisode({ number, seasonNumber, serialSlug }, { cookies });
 
-    return {
-      episode,
-      previousEpisode,
-      nextEpisode,
-      serial,
-      season,
-    };
+    return episode;
   } catch (error) {
     console.error(error);
     destroyCookie({ req }, 'token');
@@ -113,11 +105,9 @@ EpisodePage.getInitialProps = async ({ req, res, query }) => {
 };
 
 EpisodePage.propTypes = {
-  episode: PropTypes.shape({
-    number: PropTypes.number.isRequired,
-    title: PropTypes.string,
-    url: PropTypes.string.isRequired,
-  }).isRequired,
+  number: PropTypes.number.isRequired,
+  title: PropTypes.string,
+  url: PropTypes.string.isRequired,
   previousEpisode: PropTypes.shape({
     number: PropTypes.number,
   }),
@@ -135,6 +125,7 @@ EpisodePage.propTypes = {
 };
 
 EpisodePage.defaultProps = {
+  title: '',
   previousEpisode: null,
   nextEpisode: null,
 };

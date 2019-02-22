@@ -19,6 +19,7 @@ export default class MyDocument extends Document {
             integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
             crossOrigin="anonymous"
           />
+          <link rel="icon" type="image/png" href="/static/favicon.png" />
         </Head>
         <body>
           <Main />

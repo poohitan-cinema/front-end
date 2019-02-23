@@ -17,6 +17,7 @@ class Player extends React.Component {
     const player = new Plyr(this.videoElement.current, { // eslint-disable-line
       autoplay,
       seekTime: 5,
+      ratio: '16:9',
       keyboard: {
         focused: true,
         global: true,

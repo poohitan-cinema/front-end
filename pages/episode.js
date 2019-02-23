@@ -68,7 +68,9 @@ const EpisodePage = ({
 
   return (
     <Layout>
-      <Head><title>{`${serial.title} – Cезон ${season.number}, Cерія ${number} / ${config.pageTitle}`}</title></Head>
+      <Head>
+        <title>{`${serial.title} – Cезон ${season.number}, Cерія ${number} / ${config.pageTitle}`}</title>
+      </Head>
       <Breadcrumbs crumbs={breadcrumbs} theme={serial.slug} />
       <div className={`${styles.wrapper} ${styles[serial.slug]}`}>
         {

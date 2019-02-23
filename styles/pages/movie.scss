@@ -21,11 +21,6 @@ $playerHeight: 60vmin;
     min-height: 5em;
   }
 
-  .player {
-    max-width: calc(#{$playerHeight} * 16 / 9);
-    width:  calc(#{$playerHeight} * 16 / 9);
-  }
-
   .description {
     margin: 1em 0;
     line-height: 1.4em;

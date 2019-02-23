@@ -2,6 +2,15 @@
 
 .wrapper {
   width: 100%;
+  height: 100%;
+
+  :global {
+    .plyr,
+    .plyr__video-wrapper,
+    .plyr__video-wrapper video {
+      height: 100%;
+    }
+  }
 
   @each $theme, $color in $themes {
     &.#{$theme} {

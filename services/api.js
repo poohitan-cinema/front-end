@@ -11,17 +11,25 @@ async function login({ password }) {
   });
 }
 
-async function getMany(endpoint, query, { cookies }) {
+async function getMany(tableName, query, { cookies } = {}) {
   return request({
-    url: `${apiURL}/${endpoint}`,
+    url: `${apiURL}/${tableName}`,
     query,
     cookies,
   });
 }
 
-async function getDetailed(endpoint, query, { cookies }) {
+async function getDetailed(tableName, query, { cookies } = {}) {
   return request({
-    url: `${apiURL}/${endpoint}/detailed`,
+    url: `${apiURL}/${tableName}/detailed`,
+    query,
+    cookies,
+  });
+}
+
+async function getRandom(tableName, query, { cookies } = {}) {
+  return request({
+    url: `${apiURL}/${tableName}/random`,
     query,
     cookies,
   });
@@ -36,13 +44,22 @@ const getSerial = (...params) => getDetailed('serials', ...params);
 const getSeason = (...params) => getDetailed('seasons', ...params);
 const getEpisode = (...params) => getDetailed('episodes', ...params);
 
+const getRandomEpisode = (...params) => getRandom('episodes', ...params);
+const getRandomMovie = (...params) => getRandom('movies', ...params);
+
 export default {
   login,
+
   getSerials,
   getSerial,
+
   getSeasons,
   getSeason,
+
   getEpisodes,
   getEpisode,
+  getRandomEpisode,
+
   getMovies,
+  getRandomMovie,
 };

@@ -8,9 +8,10 @@
   margin-top: 1em;
 }
 
-.heading {
+.header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .title {
@@ -20,7 +21,6 @@
     }
   }
 }
-
 
 @media (max-width: 800px) {
   .grid {

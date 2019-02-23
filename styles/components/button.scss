@@ -18,6 +18,8 @@
     color: $dark-grey;
     font-size: .7em;
     margin-right: .7em;
+
+    transition: color 100ms linear;
   }
 
   &:hover {
@@ -45,10 +47,18 @@
     background-color: transparent;
     color: $grey;
 
+    .icon {
+      color: $grey;
+    }
+
     &:hover {
       border-color: $light-grey;
       background-color: transparent;
       color: $light-grey;
+
+      .icon {
+        color: $light-grey;
+      }
     }
   }
 
@@ -63,6 +73,10 @@
         border-color: $color;
         background-color: transparent;
         color: $color;
+
+        .icon {
+          color: $color;
+        }
       }
     }
   }

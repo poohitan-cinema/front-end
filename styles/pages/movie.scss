@@ -1,6 +1,8 @@
 @import '../variables';
 @import '../mixins/link';
 
+$playerHeight: 60vmin;
+
 .wrapper {
   margin-top: 1em;
 
@@ -15,16 +17,13 @@
     justify-content: center;
     align-items: center;
 
-    $height: calc(100vh - 12em);
-    height: $height;
+    height: $playerHeight;
     min-height: 5em;
   }
 
   .player {
-    $height: calc(100vh - 12em);
-
-    max-width: calc(#{$height} * 16 / 9);
-    width:  calc(#{$height} * 16 / 9);
+    max-width: calc(#{$playerHeight} * 16 / 9);
+    width:  calc(#{$playerHeight} * 16 / 9);
   }
 
   .description {

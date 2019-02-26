@@ -8,7 +8,7 @@ import config from '../config';
 
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
-import Player from '../components/Player';
+import Player from '../components/ui/Player';
 
 import API from '../services/api';
 

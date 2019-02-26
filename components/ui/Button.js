@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from '../styles/components/button.scss';
+import styles from '../../styles/components/ui/button.scss';
 
 const Button = ({
   text,

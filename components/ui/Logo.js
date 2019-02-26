@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import styles from '../styles/components/logo.scss';
+import styles from '../../styles/components/ui/logo.scss';
 
 const Logo = () => (
   <Link href="/index" as="/">

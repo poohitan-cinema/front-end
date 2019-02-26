@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { initGA, logPageView } from '../services/analytics';
-import Logo from './Logo';
+import Logo from './ui/Logo';
 
 import styles from '../styles/components/layout.scss';
 

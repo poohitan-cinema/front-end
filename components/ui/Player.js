@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Plyr from 'plyr';
 
-import styles from '../styles/components/player.scss';
+import styles from '../../styles/components/ui/player.scss';
 
 class Player extends React.Component {
   constructor(props) {

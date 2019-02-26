@@ -1,30 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
+
+import Breadcrumb from './breadcrumbs/Breadcrumb';
+import Separator from './breadcrumbs/Separator';
 
 import styles from '../styles/components/breadcrumbs.scss';
-
-const Separator = () => <div className={styles.separator}>*</div>;
-
-const Crumb = ({
-  title, icon, href, as, theme, disabled,
-}) => (
-  <h1 className={`${styles.crumb} ${disabled && styles.disabled}`}>
-    {
-      icon && <div className={styles.icon} style={{ backgroundImage: `url("${icon}")` }} />
-    }
-    <Link href={href} as={as} prefetch>
-      <a className={`${styles.link} ${styles[theme]}`}>{title}</a>
-    </Link>
-  </h1>
-);
 
 const Breadcrumbs = ({ crumbs, theme }) => (
   <div className={styles.wrapper}>
     {
       crumbs
         .map((crumb, index) => (
-          <Crumb
+          <Breadcrumb
             {...crumb}
             key={crumb.title}
             theme={theme}
@@ -35,23 +22,6 @@ const Breadcrumbs = ({ crumbs, theme }) => (
     }
   </div>
 );
-
-Crumb.propTypes = {
-  title: PropTypes.string.isRequired,
-  icon: PropTypes.string,
-  href: PropTypes.string,
-  as: PropTypes.string,
-  theme: PropTypes.string,
-  disabled: PropTypes.bool,
-};
-
-Crumb.defaultProps = {
-  icon: '',
-  href: '',
-  as: '',
-  theme: '',
-  disabled: false,
-};
 
 Breadcrumbs.propTypes = {
   crumbs: PropTypes.arrayOf(PropTypes.object),

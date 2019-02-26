@@ -9,19 +9,13 @@ import config from '../config';
 import Layout from '../components/Layout';
 import SeasonPreview from '../components/SeasonPreview';
 import Breadcrumbs from '../components/Breadcrumbs';
-import Button from '../components/Button';
+import RandomEpisodeButton from '../components/episode/RandomEpisodeButton';
 
 import API from '../services/api';
 
 import styles from '../styles/pages/serial.scss';
 
 class SerialPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.redirectToRandomEpisode = this.redirectToRandomEpisode.bind(this);
-  }
-
   static async getInitialProps({ req, res, query }) {
     const { slug } = query;
     const cookies = parseCookies({ req });
@@ -38,19 +32,9 @@ class SerialPage extends React.Component {
     }
   }
 
-  async redirectToRandomEpisode() {
-    const { id } = this.props;
-    const { number, season, serial } = await API.getRandomEpisode({ serialId: id });
-
-    Router.push(
-      `/episode?number=${number}&seasonNumber=${season.number}&serialSlug=${serial.slug}`,
-      `/serials/${serial.slug}/seasons/${season.number}/episodes/${number}`,
-    );
-  }
-
   render() {
     const {
-      slug, title, icon, seasons,
+      id, slug, title, icon, seasons,
     } = this.props;
     const breadcrumbs = [
       {
@@ -64,7 +48,7 @@ class SerialPage extends React.Component {
         <Head><title>{`${title} / ${config.pageTitle}`}</title></Head>
         <div className={styles.header}>
           <Breadcrumbs crumbs={breadcrumbs} theme={slug} />
-          <Button light theme={slug} icon="fas fa-magic" onClick={this.redirectToRandomEpisode}>Випадкова серія</Button>
+          <RandomEpisodeButton theme={slug} serialId={id} />
         </div>
         <div className={styles.grid}>
           {

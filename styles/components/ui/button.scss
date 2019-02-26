@@ -1,6 +1,6 @@
-@import '../mixins/input';
-@import '../variables';
-@import '../themes';
+@import '../../mixins/input';
+@import '../../variables';
+@import '../../themes';
 
 .button {
   @include input;
@@ -58,6 +58,16 @@
 
       .icon {
         color: $light-grey;
+      }
+    }
+
+    &.disabled {
+      pointer-events: none;
+      border-color: $dark-grey;
+      color: $dark-grey;
+
+      .icon {
+        color: $dark-grey;
       }
     }
   }

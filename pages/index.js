@@ -5,7 +5,8 @@ import { parseCookies, destroyCookie } from 'nookies';
 
 import Layout from '../components/Layout';
 import MovieSerialPreview from '../components/MovieSerialPreview';
-import Button from '../components/Button';
+import RandomEpisodeButton from '../components/episode/RandomEpisodeButton';
+import RandomMovieButton from '../components/movie/RandomMovieButton';
 
 import API from '../services/api';
 
@@ -55,7 +56,7 @@ class IndexPage extends React.Component {
             <h1>Серіали</h1>
             {
               serials.length
-                ? <Button light icon="fas fa-magic" onClick={IndexPage.redirectToRandomEpisode}>Геть випадкова серія</Button>
+                ? <RandomEpisodeButton />
                 : null
             }
           </div>
@@ -73,7 +74,7 @@ class IndexPage extends React.Component {
             <h1>Фільми</h1>
             {
               movies.length
-                ? <Button light icon="fas fa-magic" onClick={IndexPage.redirectToRandomMovie}>Випадковий фільм</Button>
+                ? <RandomMovieButton />
                 : null
             }
           </div>

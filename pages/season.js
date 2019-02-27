@@ -31,14 +31,16 @@ const SeasonPage = ({
     },
   ];
 
+  const viewableEpisodes = episodes.filter(episode => episode.url);
+
   return (
     <Layout>
       <Head><title>{`${serial.title} – Cезон ${number} / ${config.pageTitle}`}</title></Head>
       <Breadcrumbs crumbs={breadcrumbs} theme={serial.slug} />
       <div className={styles.grid}>
         {
-          episodes.length
-            ? episodes.map(episode => (
+          viewableEpisodes.length
+            ? viewableEpisodes.map(episode => (
               <EpisodePreview
                 {...episode}
                 serialSlug={serial.slug}

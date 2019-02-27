@@ -39,6 +39,7 @@ class EpisodePage extends React.Component {
     const {
       number,
       title,
+      description,
       url,
       previousEpisode,
       nextEpisode,
@@ -93,6 +94,9 @@ class EpisodePage extends React.Component {
               theme={serial.slug}
             />
           </div>
+          {
+            description && <div className={styles.description}>{description}</div>
+          }
         </div>
       </Layout>
     );
@@ -102,6 +106,7 @@ class EpisodePage extends React.Component {
 EpisodePage.propTypes = {
   number: PropTypes.number.isRequired,
   title: PropTypes.string,
+  description: PropTypes.string,
   url: PropTypes.string.isRequired,
   previousEpisode: PropTypes.shape({
     number: PropTypes.number,
@@ -121,6 +126,7 @@ EpisodePage.propTypes = {
 
 EpisodePage.defaultProps = {
   title: '',
+  description: '',
   previousEpisode: {
     number: null,
   },

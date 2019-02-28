@@ -160,15 +160,15 @@ class EpisodePage extends React.Component {
 
 EpisodePage.propTypes = {
   id: PropTypes.number.isRequired,
-  number: PropTypes.number.isRequired,
+  number: PropTypes.string.isRequired,
   title: PropTypes.string,
   description: PropTypes.string,
   url: PropTypes.string.isRequired,
   previousEpisode: PropTypes.shape({
-    number: PropTypes.number,
+    number: PropTypes.string,
   }),
   nextEpisode: PropTypes.shape({
-    number: PropTypes.number,
+    number: PropTypes.string,
   }),
   serial: PropTypes.shape({
     id: PropTypes.number,

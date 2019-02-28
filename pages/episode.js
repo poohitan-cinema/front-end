@@ -77,6 +77,8 @@ class EpisodePage extends React.Component {
     } = this.props;
 
     const { title, description } = this.state;
+    const currentUser = this.context;
+    const isAdmin = currentUser.role === 'admin';
 
     const breadcrumbs = [
       {
@@ -94,9 +96,6 @@ class EpisodePage extends React.Component {
         title: `Серія ${number}`,
       },
     ];
-
-    const currentUser = this.context;
-    const isAdmin = currentUser.role === 'admin';
 
     return (
       <Layout>

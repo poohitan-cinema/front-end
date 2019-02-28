@@ -58,6 +58,7 @@ const getRandomEpisode = (...params) => getRandom('episodes', ...params);
 const getRandomMovie = (...params) => getRandom('movies', ...params);
 
 const updateEpisode = (...params) => update('episodes', ...params);
+const updateMovie = (...params) => update('movies', ...params);
 
 export default {
   login,
@@ -75,4 +76,5 @@ export default {
 
   getMovies,
   getRandomMovie,
+  updateMovie,
 };

@@ -1,6 +1,9 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
+import cookies from 'nookies';
+
+import CurrentUserContext from '../contexts/current-user';
 
 import config from '../config';
 import '../styles/global.scss';
@@ -13,16 +16,21 @@ class MyApp extends App {
       pageProps = await Component.getInitialProps(ctx);
     }
 
-    return { pageProps };
+    const { user } = cookies.get(ctx);
+    const currentUser = user ? JSON.parse(user) : {};
+
+    return { pageProps, currentUser };
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, currentUser } = this.props;
 
     return (
       <Container>
-        <Head><title>{config.pageTitle}</title></Head>
-        <Component {...pageProps} />
+        <CurrentUserContext.Provider value={currentUser}>
+          <Head><title>{config.pageTitle}</title></Head>
+          <Component {...pageProps} />
+        </CurrentUserContext.Provider>
       </Container>
     );
   }

@@ -1,13 +1,23 @@
 import request from '../utils/request';
 import { apiURL } from '../config';
 
-async function login({ password }) {
+async function login({ name, password }) {
   return request({
     url: `${apiURL}/login`,
     method: 'POST',
     body: {
+      name,
       password,
     },
+  });
+}
+
+async function update(tableName, id, body, { cookies } = {}) {
+  return request({
+    url: `${apiURL}/${tableName}/${id}`,
+    method: 'PATCH',
+    body,
+    cookies,
   });
 }
 
@@ -47,6 +57,8 @@ const getEpisode = (...params) => getDetailed('episodes', ...params);
 const getRandomEpisode = (...params) => getRandom('episodes', ...params);
 const getRandomMovie = (...params) => getRandom('movies', ...params);
 
+const updateEpisode = (...params) => update('episodes', ...params);
+
 export default {
   login,
 
@@ -59,6 +71,7 @@ export default {
   getEpisodes,
   getEpisode,
   getRandomEpisode,
+  updateEpisode,
 
   getMovies,
   getRandomMovie,

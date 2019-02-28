@@ -19,15 +19,16 @@ class LoginPage extends React.Component {
   }
 
   async login() {
-    const { password } = this.state;
+    const { name, password } = this.state;
 
     this.setState({ loginInProgress: true });
 
     try {
-      const { token } = await API.login({ password });
+      const { token, user } = await API.login({ name, password });
 
       if (token) {
         cookies.set({}, 'token', token);
+        cookies.set({}, 'user', JSON.stringify(user));
         Router.push('/');
       } else {
         window.alert('Неправильний пароль');
@@ -40,7 +41,7 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    const { password, loginInProgress } = this.state;
+    const { name, password, loginInProgress } = this.state;
 
     return (
       <div className={styles.wrapper}>
@@ -48,13 +49,21 @@ class LoginPage extends React.Component {
         <h3>Лише для своїх чуваків і чувіх</h3>
         <div className={styles.loginForm}>
           <Input
+            placeholder="Ім'я"
+            value={name}
+            disabled={loginInProgress}
+            icon="far fa-laugh"
+            onChange={enteredName => this.setState({ name: enteredName })}
+            className={styles.input}
+          />
+          <Input
             placeholder="Пароль"
             value={password}
             disabled={loginInProgress}
             icon="fas fa-lock"
             type="password"
             onChange={enteredPassword => this.setState({ password: enteredPassword })}
-            className={styles.passwordInput}
+            className={styles.input}
           />
           <Button disabled={loginInProgress} onClick={this.login}>Увійти</Button>
         </div>

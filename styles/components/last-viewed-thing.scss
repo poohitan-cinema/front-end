@@ -1,0 +1,16 @@
+@import '../variables';
+@import '../mixins/link';
+
+.wrapper {
+  font-size: .7em;
+  color: darken($white, 30%);
+  opacity: .5;
+
+  .row {
+    margin: .2em 0;
+  }
+
+  .link {
+    @include link($white, 1px);
+  }
+}

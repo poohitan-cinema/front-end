@@ -7,6 +7,7 @@ import Layout from '../components/Layout';
 import MovieSerialPreview from '../components/MovieSerialPreview';
 import RandomEpisodeButton from '../components/episode/RandomEpisodeButton';
 import RandomMovieButton from '../components/movie/RandomMovieButton';
+import LastViewedThing from '../components/LastViewedThing';
 
 import API from '../services/api';
 
@@ -19,8 +20,15 @@ class IndexPage extends React.Component {
     try {
       const serials = await API.getSerials({}, { cookies });
       const movies = await API.getMovies({}, { cookies });
+      const lastEpisodeView = await API.getLastEpisodeView({}, { cookies });
+      const lastMovieView = await API.getLastMovieView({}, { cookies });
 
-      return { movies, serials };
+      return {
+        serials,
+        movies,
+        lastEpisodeView,
+        lastMovieView,
+      };
     } catch (error) {
       destroyCookie({ req }, 'token');
 
@@ -28,38 +36,31 @@ class IndexPage extends React.Component {
     }
   }
 
-  static async redirectToRandomEpisode() {
-    const { number, season, serial } = await API.getRandomEpisode();
-
-    Router.push(
-      `/episode?number=${number}&seasonNumber=${season.number}&serialSlug=${serial.slug}`,
-      `/serials/${serial.slug}/seasons/${season.number}/episodes/${number}`,
-    );
-  }
-
-  static async redirectToRandomMovie() {
-    const movie = await API.getRandomMovie();
-
-    Router.push(
-      `/movies?slug=${movie.slug}`,
-      `/movies/${movie.slug}`,
-    );
-  }
-
   render() {
-    const { serials, movies } = this.props;
+    const {
+      serials,
+      movies,
+      lastEpisodeView,
+      lastMovieView,
+    } = this.props;
 
     return (
       <Layout>
         <div className={styles.section}>
           <div className={styles.header}>
             <h1>Серіали</h1>
-            {
-              serials.length
-                ? <RandomEpisodeButton />
-                : null
-            }
+            <div className={`${styles.navigation} ${lastEpisodeView ? styles.fullWidth : ''}`}>
+              {
+                lastEpisodeView && <LastViewedThing {...lastEpisodeView} showSerialTitle className={styles.lastView} />
+              }
+              {
+                serials.length
+                  ? <RandomEpisodeButton />
+                  : null
+              }
+            </div>
           </div>
+
           <div className={styles.grid}>
             {
               serials.length
@@ -72,11 +73,16 @@ class IndexPage extends React.Component {
         <div className={styles.section}>
           <div className={styles.header}>
             <h1>Фільми</h1>
-            {
-              movies.length
-                ? <RandomMovieButton />
-                : null
-            }
+            <div className={`${styles.navigation} ${lastMovieView ? styles.fullWidth : ''}`}>
+              {
+                lastMovieView && <LastViewedThing {...lastMovieView} className={styles.lastView} />
+              }
+              {
+                movies.length
+                  ? <RandomMovieButton />
+                  : null
+              }
+            </div>
           </div>
           <div className={styles.grid}>
             {
@@ -94,11 +100,32 @@ class IndexPage extends React.Component {
 IndexPage.propTypes = {
   serials: PropTypes.arrayOf(PropTypes.object),
   movies: PropTypes.arrayOf(PropTypes.object),
+  lastEpisodeView: PropTypes.shape({
+    episodeTitle: PropTypes.string,
+    episodeNumber: PropTypes.string,
+    seasonNumber: PropTypes.number,
+    serialSlug: PropTypes.string,
+    serialTitle: PropTypes.string,
+    endTime: PropTypes.number,
+    nextEpisode: PropTypes.shape({
+      number: PropTypes.string,
+      title: PropTypes.string,
+      seasonNumber: PropTypes.number,
+      serialSlug: PropTypes.string,
+    }),
+  }),
+  lastMovieView: PropTypes.shape({
+    movieTitle: PropTypes.string,
+    movieSlug: PropTypes.string,
+    endTime: PropTypes.number,
+  }),
 };
 
 IndexPage.defaultProps = {
   serials: [],
   movies: [],
+  lastEpisodeView: null,
+  lastMovieView: null,
 };
 
 export default IndexPage;

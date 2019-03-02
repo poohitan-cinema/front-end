@@ -19,13 +19,13 @@ import styles from '../styles/pages/movie.scss';
 
 class MoviePage extends React.Component {
   static async getInitialProps({ req, res, query }) {
-    const { movieSlug } = query;
+    const { movieSlug, time } = query;
     const cookies = parseCookies({ req });
 
     try {
       const [movie] = await API.getMovies({ slug: movieSlug }, { cookies });
 
-      return movie;
+      return { ...movie, time };
     } catch (error) {
       console.error(error);
       destroyCookie({ req }, 'token');
@@ -43,6 +43,7 @@ class MoviePage extends React.Component {
     this.descriptionRef = React.createRef();
 
     this.saveMovie = this.saveMovie.bind(this);
+    this.trackView = this.trackView.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -51,6 +52,23 @@ class MoviePage extends React.Component {
     }
 
     return state;
+  }
+
+  async trackView() {
+    const { id: userId, token } = this.context;
+    const { videoId, time } = this.props;
+    const { currentPlayerTime } = this.state;
+
+    if (currentPlayerTime === time) {
+      return Promise.resolve();
+    }
+
+    return API.trackVideoView({
+      endTime: currentPlayerTime,
+      videoId,
+      userId,
+      token,
+    });
   }
 
   async saveMovie() {
@@ -67,6 +85,7 @@ class MoviePage extends React.Component {
       icon,
       url,
       slug,
+      time,
     } = this.props;
 
     const { title, description } = this.state;
@@ -88,7 +107,14 @@ class MoviePage extends React.Component {
         <Breadcrumbs crumbs={breadcrumbs} theme={slug} />
         <div className={styles.wrapper}>
           <div className={styles.playerWrapper}>
-            <Player source={url} theme={slug} className={styles.player} />
+            <Player
+              source={url}
+              theme={slug}
+              startAt={time}
+              onTimeUpdate={currentTime => this.setState({ currentPlayerTime: currentTime })}
+              onEnd={this.trackView}
+              className={styles.player}
+            />
           </div>
           {
             description
@@ -116,11 +142,15 @@ MoviePage.propTypes = {
   slug: PropTypes.string.isRequired,
   icon: PropTypes.string,
   url: PropTypes.string.isRequired,
+  time: PropTypes.number,
+  videoId: PropTypes.string,
 };
 
 MoviePage.defaultProps = {
   description: '',
   icon: '',
+  time: 0,
+  videoId: null,
 };
 
 MoviePage.contextType = CurrentUserContext;

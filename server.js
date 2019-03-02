@@ -17,6 +17,7 @@ app.prepare()
         serialSlug: req.params.serial_slug,
         seasonNumber: req.params.season_number,
         number: req.params.episode_number,
+        ...req.query,
       });
     });
 
@@ -24,18 +25,21 @@ app.prepare()
       app.render(req, res, '/season', {
         serialSlug: req.params.serial_slug,
         number: req.params.season_number,
+        ...req.query,
       });
     });
 
     server.get('/serials/:serial_slug', (req, res) => {
       app.render(req, res, '/serial', {
         slug: req.params.serial_slug,
+        ...req.query,
       });
     });
 
     server.get('/movies/:movie_slug', (req, res) => {
       app.render(req, res, '/movie', {
         slug: req.params.movie_slug,
+        ...req.query,
       });
     });
 

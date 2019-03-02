@@ -10,6 +10,7 @@ import Layout from '../components/Layout';
 import SeasonPreview from '../components/SeasonPreview';
 import Breadcrumbs from '../components/Breadcrumbs';
 import RandomEpisodeButton from '../components/episode/RandomEpisodeButton';
+import LastViewedThing from '../components/LastViewedThing';
 
 import API from '../services/api';
 
@@ -22,8 +23,9 @@ class SerialPage extends React.Component {
 
     try {
       const serial = await API.getSerial({ slug }, { cookies });
+      const lastEpisodeView = await API.getLastEpisodeView({ serialId: serial.id }, { cookies });
 
-      return serial;
+      return { ...serial, lastEpisodeView };
     } catch (error) {
       console.error(error);
       destroyCookie({ req }, 'token');
@@ -34,7 +36,7 @@ class SerialPage extends React.Component {
 
   render() {
     const {
-      id, slug, title, icon, seasons,
+      id, slug, title, icon, seasons, lastEpisodeView,
     } = this.props;
     const breadcrumbs = [
       {
@@ -48,7 +50,12 @@ class SerialPage extends React.Component {
         <Head><title>{`${title} / ${config.pageTitle}`}</title></Head>
         <div className={styles.header}>
           <Breadcrumbs crumbs={breadcrumbs} theme={slug} />
-          <RandomEpisodeButton theme={slug} serialId={id} />
+          <div className={`${styles.navigation} ${lastEpisodeView ? styles.fullWidth : ''}`}>
+            {
+              lastEpisodeView && <LastViewedThing {...lastEpisodeView} className={styles.lastView} />
+            }
+            <RandomEpisodeButton theme={slug} serialId={id} />
+          </div>
         </div>
         <div className={styles.grid}>
           {
@@ -68,10 +75,26 @@ SerialPage.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.string,
   seasons: PropTypes.arrayOf(PropTypes.object).isRequired,
+
+  lastEpisodeView: PropTypes.shape({
+    episodeTitle: PropTypes.string,
+    episodeNumber: PropTypes.string,
+    seasonNumber: PropTypes.number,
+    serialSlug: PropTypes.string,
+    serialTitle: PropTypes.string,
+    endTime: PropTypes.number,
+    nextEpisode: PropTypes.shape({
+      number: PropTypes.string,
+      title: PropTypes.string,
+      seasonNumber: PropTypes.number,
+      serialSlug: PropTypes.string,
+    }),
+  }),
 };
 
 SerialPage.defaultProps = {
   icon: '',
+  lastEpisodeView: null,
 };
 
 export default SerialPage;

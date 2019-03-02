@@ -45,6 +45,28 @@ async function getRandom(tableName, query, { cookies } = {}) {
   });
 }
 
+function trackVideoView({
+  userId, videoId, endTime, token,
+}) {
+  if (!(userId && videoId && endTime && token)) {
+    return;
+  }
+
+  navigator.sendBeacon(`${apiURL}/video-views?token=${token}`, JSON.stringify({
+    userId,
+    videoId,
+    endTime,
+  }));
+}
+
+async function getLastView(type, query, { cookies } = {}) {
+  return request({
+    url: `${apiURL}/video-views/${type}/last`,
+    query,
+    cookies,
+  });
+}
+
 const getSerials = (...params) => getMany('serials', ...params);
 const getEpisodes = (...params) => getMany('episodes', ...params);
 const getSeasons = (...params) => getMany('seasons', ...params);
@@ -59,6 +81,10 @@ const getRandomMovie = (...params) => getRandom('movies', ...params);
 
 const updateEpisode = (...params) => update('episodes', ...params);
 const updateMovie = (...params) => update('movies', ...params);
+
+const getVideoViews = (...params) => getMany('video-views', ...params);
+const getLastEpisodeView = (...params) => getLastView('episodes', ...params);
+const getLastMovieView = (...params) => getLastView('movies', ...params);
 
 export default {
   login,
@@ -77,4 +103,9 @@ export default {
   getMovies,
   getRandomMovie,
   updateMovie,
+
+  getVideoViews,
+  trackVideoView,
+  getLastEpisodeView,
+  getLastMovieView,
 };

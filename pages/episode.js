@@ -23,13 +23,15 @@ import styles from '../styles/pages/movie.scss';
 
 class EpisodePage extends React.Component {
   static async getInitialProps({ req, res, query }) {
-    const { serialSlug, seasonNumber, number } = query;
+    const {
+      serialSlug, seasonNumber, number, time,
+    } = query;
     const cookies = parseCookies({ req });
 
     try {
       const episode = await API.getEpisode({ number, seasonNumber, serialSlug }, { cookies });
 
-      return episode;
+      return { ...episode, time: Number(time) };
     } catch (error) {
       console.error(error);
       destroyCookie({ req }, 'token');
@@ -47,6 +49,11 @@ class EpisodePage extends React.Component {
     this.descriptionRef = React.createRef();
 
     this.saveEpisode = this.saveEpisode.bind(this);
+    this.trackView = this.trackView.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('unload', () => this.trackView());
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -55,6 +62,19 @@ class EpisodePage extends React.Component {
     }
 
     return state;
+  }
+
+  async trackView() {
+    const { id: userId, token } = this.context;
+    const { videoId } = this.props;
+    const { currentPlayerTime } = this.state;
+
+    return API.trackVideoView({
+      endTime: currentPlayerTime,
+      videoId,
+      userId,
+      token,
+    });
   }
 
   async saveEpisode() {
@@ -74,6 +94,7 @@ class EpisodePage extends React.Component {
       nextEpisode,
       serial,
       season,
+      time,
     } = this.props;
 
     const { title, description } = this.state;
@@ -120,7 +141,19 @@ class EpisodePage extends React.Component {
           }
           <div className={styles.playerWrapper}>
             {
-              url ? <Player source={url} theme={serial.slug} className={styles.player} /> : 'Цієї серії ше немає'
+              url
+                ? (
+                  <Player
+                    key={url}
+                    source={url}
+                    startAt={time}
+                    theme={serial.slug}
+                    onTimeUpdate={currentTime => this.setState({ currentPlayerTime: currentTime })}
+                    onEnd={this.trackView}
+                    className={styles.player}
+                  />
+                )
+                : 'Цієї серії ше немає'
             }
           </div>
           <div className={styles.footer}>
@@ -163,6 +196,8 @@ EpisodePage.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   url: PropTypes.string.isRequired,
+  videoId: PropTypes.number,
+  time: PropTypes.number,
   previousEpisode: PropTypes.shape({
     number: PropTypes.string,
   }),
@@ -182,6 +217,8 @@ EpisodePage.propTypes = {
 EpisodePage.defaultProps = {
   title: '',
   description: '',
+  videoId: null,
+  time: 0,
   previousEpisode: {
     number: null,
   },

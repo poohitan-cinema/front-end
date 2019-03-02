@@ -16,8 +16,11 @@ class MyApp extends App {
       pageProps = await Component.getInitialProps(ctx);
     }
 
-    const { user } = cookies.get(ctx);
-    const currentUser = user ? JSON.parse(user) : {};
+    const { user, token } = cookies.get(ctx);
+    const currentUser = user ? {
+      token,
+      ...JSON.parse(user),
+    } : {};
 
     return { pageProps, currentUser };
   }

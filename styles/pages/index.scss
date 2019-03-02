@@ -10,6 +10,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &.full-width {
+    width: 100%;
+  }
 }
 
 .grid {

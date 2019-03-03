@@ -60,7 +60,7 @@ class LoginPage extends React.Component {
             placeholder="Пароль"
             value={password}
             disabled={loginInProgress}
-            icon="fas fa-lock"
+            icon="fas fa-key"
             type="password"
             onChange={enteredPassword => this.setState({ password: enteredPassword })}
             className={styles.input}

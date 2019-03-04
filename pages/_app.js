@@ -2,6 +2,7 @@ import React from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
 import cookies from 'nookies';
+import NProgress from 'next-nprogress/component';
 
 import CurrentUserContext from '../contexts/current-user';
 
@@ -30,6 +31,7 @@ class MyApp extends App {
 
     return (
       <Container>
+        <NProgress color="#fff" spinner={false} />
         <CurrentUserContext.Provider value={currentUser}>
           <Head><title>{config.pageTitle}</title></Head>
           <Component {...pageProps} />

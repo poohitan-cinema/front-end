@@ -10,6 +10,7 @@ const EpisodePreview = ({
   <Link
     href={`/episode?number=${number}&serialSlug=${serialSlug}&seasonNumber=${seasonNumber}`}
     as={`/serials/${serialSlug}/seasons/${seasonNumber}/episodes/${number}`}
+    prefetch
   >
     <a className={`${styles.wrapper} ${styles[theme]}`}>
       <h2 className={styles.number}>{`Серія ${number}`}</h2>

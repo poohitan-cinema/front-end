@@ -7,7 +7,11 @@ import styles from '../styles/components/season-preview.scss';
 const SeasonPreview = ({
   number, cover, serialSlug, theme,
 }) => (
-  <Link href={`/season?number=${number}&serialSlug=${serialSlug}`} as={`/serials/${serialSlug}/seasons/${number}`}>
+  <Link
+    href={`/season?number=${number}&serialSlug=${serialSlug}`}
+    as={`/serials/${serialSlug}/seasons/${number}`}
+    prefetch
+  >
     <a className={`${styles.wrapper} ${styles[theme]}`} style={{ backgroundImage: `url("${cover}")` }}>
       <div className={styles.content}>
         <h2>{`Сезон ${number}`}</h2>

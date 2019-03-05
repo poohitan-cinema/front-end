@@ -12,7 +12,7 @@ const MovieSerialPreview = ({
       <div className={styles.cover} style={{ backgroundImage: `url("${cover}")` }} />
       <div className={styles.contentWrapper}>
         <div className={styles.content}>
-          <h2>{title}</h2>
+          <h3>{title}</h3>
         </div>
       </div>
     </a>

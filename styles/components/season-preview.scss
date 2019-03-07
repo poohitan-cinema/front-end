@@ -28,6 +28,13 @@
     z-index: 30;
   }
 
+  &:hover {
+    .content {
+      background-color: $light-grey;
+      color: $black;
+    }
+  }
+
   @each $theme, $color in $themes {
     &:hover.#{$theme} {
       .content {

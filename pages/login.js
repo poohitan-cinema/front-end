@@ -28,11 +28,11 @@ class LoginPage extends React.Component {
 
     try {
       const { token, user } = await API.login({ name, password });
-      const { hostnme } = document.location;
+      const { hostname } = document.location;
 
       if (token) {
-        cookies.set({}, 'token', token, { domain: hostnme });
-        cookies.set({}, 'user', JSON.stringify(user), { domain: hostnme });
+        cookies.set({}, 'token', token, { domain: hostname });
+        cookies.set({}, 'user', JSON.stringify(user), { domain: hostname });
         Router.push('/');
       } else {
         window.alert('Неправильний пароль');

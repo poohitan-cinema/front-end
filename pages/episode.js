@@ -191,12 +191,12 @@ class EpisodePage extends React.Component {
 }
 
 EpisodePage.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
   title: PropTypes.string,
   description: PropTypes.string,
   url: PropTypes.string.isRequired,
-  videoId: PropTypes.number,
+  videoId: PropTypes.string,
   time: PropTypes.number,
   previousEpisode: PropTypes.shape({
     number: PropTypes.string,
@@ -205,12 +205,12 @@ EpisodePage.propTypes = {
     number: PropTypes.string,
   }),
   serial: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     title: PropTypes.string,
     icon: PropTypes.string,
   }).isRequired,
   season: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
   }).isRequired,
 };
 

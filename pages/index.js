@@ -103,14 +103,14 @@ IndexPage.propTypes = {
   lastEpisodeView: PropTypes.shape({
     episodeTitle: PropTypes.string,
     episodeNumber: PropTypes.string,
-    seasonNumber: PropTypes.number,
+    seasonNumber: PropTypes.string,
     serialSlug: PropTypes.string,
     serialTitle: PropTypes.string,
     endTime: PropTypes.number,
     nextEpisode: PropTypes.shape({
       number: PropTypes.string,
       title: PropTypes.string,
-      seasonNumber: PropTypes.number,
+      seasonNumber: PropTypes.string,
       serialSlug: PropTypes.string,
     }),
   }),

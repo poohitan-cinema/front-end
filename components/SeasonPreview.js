@@ -21,7 +21,7 @@ const SeasonPreview = ({
 );
 
 SeasonPreview.propTypes = {
-  number: PropTypes.number.isRequired,
+  number: PropTypes.string.isRequired,
   cover: PropTypes.string,
   serialSlug: PropTypes.string.isRequired,
   theme: PropTypes.string,

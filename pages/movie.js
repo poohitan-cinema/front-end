@@ -136,7 +136,7 @@ class MoviePage extends React.Component {
 }
 
 MoviePage.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   slug: PropTypes.string.isRequired,

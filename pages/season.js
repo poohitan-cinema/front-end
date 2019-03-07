@@ -73,10 +73,10 @@ SeasonPage.getInitialProps = async ({ req, res, query }) => {
 };
 
 SeasonPage.propTypes = {
-  number: PropTypes.number.isRequired,
+  number: PropTypes.string.isRequired,
   episodes: PropTypes.arrayOf(PropTypes.object),
   serial: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     title: PropTypes.string,
     icon: PropTypes.string,
   }).isRequired,

@@ -25,7 +25,7 @@ EpisodePreview.propTypes = {
   number: PropTypes.string.isRequired,
   title: PropTypes.string,
   serialSlug: PropTypes.string.isRequired,
-  seasonNumber: PropTypes.number.isRequired,
+  seasonNumber: PropTypes.string.isRequired,
   theme: PropTypes.string,
 };
 

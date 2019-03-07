@@ -31,7 +31,7 @@ const SiblingEpisodeButton = ({
 
 SiblingEpisodeButton.propTypes = {
   episodeNumber: PropTypes.string,
-  seasonNumber: PropTypes.number,
+  seasonNumber: PropTypes.string,
   serialSlug: PropTypes.string,
   type: PropTypes.oneOf(['previous', 'next']).isRequired,
   theme: PropTypes.string,

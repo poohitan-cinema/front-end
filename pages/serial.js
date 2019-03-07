@@ -70,7 +70,7 @@ class SerialPage extends React.Component {
 }
 
 SerialPage.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   icon: PropTypes.string,
@@ -79,14 +79,14 @@ SerialPage.propTypes = {
   lastEpisodeView: PropTypes.shape({
     episodeTitle: PropTypes.string,
     episodeNumber: PropTypes.string,
-    seasonNumber: PropTypes.number,
+    seasonNumber: PropTypes.string,
     serialSlug: PropTypes.string,
     serialTitle: PropTypes.string,
     endTime: PropTypes.number,
     nextEpisode: PropTypes.shape({
       number: PropTypes.string,
       title: PropTypes.string,
-      seasonNumber: PropTypes.number,
+      seasonNumber: PropTypes.string,
       serialSlug: PropTypes.string,
     }),
   }),

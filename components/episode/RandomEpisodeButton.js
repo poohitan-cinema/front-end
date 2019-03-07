@@ -32,7 +32,7 @@ class RandomEpisodeButton extends React.Component {
 }
 
 RandomEpisodeButton.propTypes = {
-  serialId: PropTypes.number,
+  serialId: PropTypes.string,
   theme: PropTypes.string,
 };
 

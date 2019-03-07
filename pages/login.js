@@ -23,12 +23,16 @@ class LoginPage extends React.Component {
 
     this.setState({ loginInProgress: true });
 
+    cookies.destroy({}, 'token');
+    cookies.destroy({}, 'user');
+
     try {
       const { token, user } = await API.login({ name, password });
+      const { host } = document.location;
 
       if (token) {
-        cookies.set({}, 'token', token);
-        cookies.set({}, 'user', JSON.stringify(user));
+        cookies.set({}, 'token', token, { domain: host });
+        cookies.set({}, 'user', JSON.stringify(user), { domain: host });
         Router.push('/');
       } else {
         window.alert('Неправильний пароль');

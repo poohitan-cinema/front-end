@@ -6,7 +6,23 @@ import styles from '../styles/components/last-viewed-thing.scss';
 
 const REWIND_SECONDS = 5;
 
-const shortenTitle = (string, length = 40) => (string.length > length + 1 ? `${string.slice(0, length)}...` : string);
+const shortenTitle = (string = '', length = 40) => (string.length > length + 1 ? `${string.slice(0, length)}...` : string);
+
+const getEpisodeCaption = ({
+  number = '?', seasonNumber = '?', title, showSerialTitle, serialTitle,
+}) => {
+  let lastEpisodeCaption = `${seasonNumber}&times;${number}`;
+
+  if (title) {
+    lastEpisodeCaption = `«${shortenTitle(title)}» (${lastEpisodeCaption})`;
+  }
+
+  if (showSerialTitle) {
+    lastEpisodeCaption = `${serialTitle}, ${lastEpisodeCaption}`;
+  }
+
+  return lastEpisodeCaption;
+};
 
 const LastViewedThing = ({
   episodeTitle,
@@ -38,13 +54,11 @@ const LastViewedThing = ({
     );
   }
 
-  let lastEpisodeCaption = `«${shortenTitle(episodeTitle)}» (${seasonNumber}&times;${episodeNumber})`;
+  const lastEpisodeCaption = getEpisodeCaption({
+    number: episodeNumber, title: episodeTitle, seasonNumber, showSerialTitle, serialTitle,
+  });
 
-  if (showSerialTitle) {
-    lastEpisodeCaption = `${serialTitle}, ${lastEpisodeCaption}`;
-  }
-
-  const nextEpisodeCaption = `«${shortenTitle(nextEpisode.title)}» (${nextEpisode.seasonNumber}&times;${nextEpisode.number})`;
+  const nextEpisodeCaption = nextEpisode ? getEpisodeCaption({ ...nextEpisode }) : '';
 
   return (
     <div className={`${styles.wrapper} ${className}`}>
@@ -90,7 +104,6 @@ LastViewedThing.propTypes = {
     number: PropTypes.string,
     title: PropTypes.string,
     seasonNumber: PropTypes.string,
-    serialSlug: PropTypes.string,
   }),
   endTime: PropTypes.number.isRequired,
   className: PropTypes.string,

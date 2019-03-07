@@ -27,10 +27,14 @@
     background-color: lighten($dark-grey, 5%);
   }
 
+  &:hover {
+    background-color: $white;
+    color: $black;
+  }
+
   @each $theme, $color in $themes {
     &:hover.#{$theme} {
       background-color: $color;
-      color: $black;
     }
   }
 }

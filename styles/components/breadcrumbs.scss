@@ -25,6 +25,10 @@
     transform: translateY(-.07em);
   }
 
+  .link {
+    @include link($white);
+  }
+
   @each $theme, $color in $themes {
     .link.#{$theme} {
       @include link($color);

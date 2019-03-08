@@ -7,11 +7,11 @@ import Button from '../ui/Button';
 
 class RandomMovieButton extends React.Component {
   static async redirectToRandomMovie() {
-    const { movie } = await API.getRandomMovie();
+    const { slug } = await API.getRandomMovie();
 
     Router.push(
-      `/movie?slug=${movie.slug}`,
-      `/movies/${movie.slug}`,
+      `/movie?slug=${slug}`,
+      `/movies/${slug}`,
     );
   }
 

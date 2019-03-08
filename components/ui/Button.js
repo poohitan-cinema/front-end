@@ -32,9 +32,11 @@ const Button = ({
       {
         icon && <div className={styles.icon}><i className={icon} /></div>
       }
-      {
-        text || children
-      }
+      <div className={styles.content}>
+        {
+          text || children
+        }
+      </div>
     </button>
   );
 };

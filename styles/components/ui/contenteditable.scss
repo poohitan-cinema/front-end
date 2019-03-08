@@ -1,0 +1,23 @@
+.wrapper {
+  position: relative;
+
+  .placeholder {
+    pointer-events: none;
+    opacity: 0;
+    margin: 0;
+    transition: opacity 100ms linear;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+  }
+
+  &.empty .placeholder {
+    opacity: .5;
+  }
+}
+
+.editable-element {
+  min-height: 1em;
+}

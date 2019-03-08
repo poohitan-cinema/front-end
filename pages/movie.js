@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import Head from 'next/head';
-import ContentEditable from 'react-contenteditable';
 import { parseCookies, destroyCookie } from 'nookies';
 
 import CurrentUserContext from '../contexts/current-user';
@@ -12,10 +11,13 @@ import config from '../config';
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Player from '../components/ui/Player';
+import ContentEditable from '../components/ui/ContentEditable';
 
 import API from '../services/api';
 
 import styles from '../styles/pages/movie.scss';
+
+const DEFAULT_DESCRIPTION = 'Тут має бути фільму';
 
 class MoviePage extends React.Component {
   static async getInitialProps({ req, res, query }) {
@@ -117,11 +119,12 @@ class MoviePage extends React.Component {
             />
           </div>
           {
-            description
+            (description || isAdmin)
             && (
               <ContentEditable
                 innerRef={this.descriptionRef}
-                html={description}
+                content={description}
+                placeholder={DEFAULT_DESCRIPTION}
                 disabled={!isAdmin}
                 onChange={event => this.setState({ description: event.target.value })}
                 onBlur={this.saveMovie}

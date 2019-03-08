@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import Head from 'next/head';
-import ContentEditable from 'react-contenteditable';
 import { parseCookies, destroyCookie } from 'nookies';
 
 import CurrentUserContext from '../contexts/current-user';
@@ -12,6 +11,7 @@ import config from '../config';
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Player from '../components/ui/Player';
+import ContentEditable from '../components/ui/ContentEditable';
 
 import NextEpisodeButton from '../components/episode/NextEpisodeButton';
 import PreviousEpisodeButton from '../components/episode/PreviousEpisodeButton';
@@ -20,6 +20,9 @@ import RandomEpisodeButton from '../components/episode/RandomEpisodeButton';
 import API from '../services/api';
 
 import styles from '../styles/pages/movie.scss';
+
+const DEFAULT_TITLE = 'Тут має бути назва серії';
+const DEFAULT_DESCRIPTION = 'Тут має бути опис серії';
 
 class EpisodePage extends React.Component {
   static async getInitialProps({ req, res, query }) {
@@ -43,7 +46,11 @@ class EpisodePage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { id: props.id, title: props.title, description: props.description };
+    this.state = {
+      id: props.id,
+      title: props.title,
+      description: props.description,
+    };
 
     this.titleRef = React.createRef();
     this.descriptionRef = React.createRef();
@@ -58,7 +65,11 @@ class EpisodePage extends React.Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.id !== state.id) {
-      return { id: props.id, title: props.title, description: props.description };
+      return {
+        id: props.id,
+        title: props.title,
+        description: props.description,
+      };
     }
 
     return state;
@@ -126,11 +137,12 @@ class EpisodePage extends React.Component {
         <Breadcrumbs crumbs={breadcrumbs} theme={serial.slug} />
         <div className={`${styles.wrapper} ${styles[serial.slug]}`}>
           {
-            title
+            (title || isAdmin)
             && (
               <ContentEditable
                 innerRef={this.titleRef}
-                html={title}
+                content={title}
+                placeholder={DEFAULT_TITLE}
                 disabled={!isAdmin}
                 onChange={event => this.setState({ title: event.target.value })}
                 onBlur={this.saveEpisode}
@@ -172,11 +184,12 @@ class EpisodePage extends React.Component {
             />
           </div>
           {
-            description
+            (description || isAdmin)
             && (
               <ContentEditable
                 innerRef={this.descriptionRef}
-                html={description}
+                content={description}
+                placeholder={DEFAULT_DESCRIPTION}
                 disabled={!isAdmin}
                 onChange={event => this.setState({ description: event.target.value })}
                 onBlur={this.saveEpisode}

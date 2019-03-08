@@ -22,6 +22,10 @@
     transition: color 100ms linear;
   }
 
+  .content {
+    white-space: nowrap;
+  }
+
   &:hover {
     background-color: $grey;
     border-color: $grey;

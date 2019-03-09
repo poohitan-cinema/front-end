@@ -17,7 +17,7 @@ import API from '../services/api';
 
 import styles from '../styles/pages/movie.scss';
 
-const DEFAULT_DESCRIPTION = 'Тут має бути фільму';
+const DEFAULT_DESCRIPTION = 'Тут має бути опис фільму';
 
 class MoviePage extends React.Component {
   static async getInitialProps({ req, res, query }) {

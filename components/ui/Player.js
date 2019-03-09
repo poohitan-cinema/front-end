@@ -56,9 +56,14 @@ class Player extends React.Component {
 
   render() {
     const { source, theme, className } = this.props;
+    const classList = [styles.wrapper, className];
+
+    if (theme) {
+      classList.push(styles[theme]);
+    }
 
     return (
-      <div className={`${styles.wrapper} ${styles[theme]} ${className}`}>
+      <div className={classList.join(' ')}>
         <video controls src={source} ref={this.videoElement} className={styles.video} />
       </div>
     );

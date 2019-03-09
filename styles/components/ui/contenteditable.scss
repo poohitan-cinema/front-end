@@ -13,12 +13,12 @@
     z-index: 2;
   }
 
+  .content {
+    min-height: 1em;
+    line-height: inherit;
+  }
+
   &.empty .placeholder {
     opacity: .5;
   }
-}
-
-.editable-element {
-  min-height: 1em;
-  line-height: inherit;
 }

@@ -9,6 +9,18 @@ const ContentEditable = ({
 }) => {
   const classList = [styles.wrapper, className];
 
+  if (disabled) {
+    const element = React.createElement(
+      tagName,
+      {
+        className: styles.content,
+      },
+      content,
+    );
+
+    return <div className={classList.join(' ')}>{element}</div>;
+  }
+
   if (!content) {
     classList.push(styles.empty);
   }
@@ -31,7 +43,7 @@ const ContentEditable = ({
         onChange={onChange}
         onBlur={onBlur}
         tagName={tagName}
-        className={styles.editableElement}
+        className={styles.content}
       />
     </div>
   );

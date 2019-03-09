@@ -21,11 +21,11 @@ const DEFAULT_DESCRIPTION = 'Тут має бути фільму';
 
 class MoviePage extends React.Component {
   static async getInitialProps({ req, res, query }) {
-    const { movieSlug, time } = query;
+    const { slug, time } = query;
     const cookies = parseCookies({ req });
 
     try {
-      const [movie] = await API.getMovies({ slug: movieSlug }, { cookies });
+      const [movie] = await API.getMovies({ slug }, { cookies });
 
       return { ...movie, time };
     } catch (error) {

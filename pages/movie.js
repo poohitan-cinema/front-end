@@ -27,7 +27,7 @@ class MoviePage extends React.Component {
     try {
       const [movie] = await API.getMovies({ slug }, { cookies });
 
-      return { ...movie, time };
+      return { ...movie, time: Number(time) };
     } catch (error) {
       console.error(error);
       destroyCookie({ req }, 'token');
@@ -84,6 +84,7 @@ class MoviePage extends React.Component {
 
   render() {
     const {
+      id,
       icon,
       url,
       slug,
@@ -110,6 +111,7 @@ class MoviePage extends React.Component {
         <div className={styles.wrapper}>
           <div className={styles.playerWrapper}>
             <Player
+              key={id}
               source={url}
               theme={slug}
               startAt={time}

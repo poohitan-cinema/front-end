@@ -99,6 +99,7 @@ class EpisodePage extends React.Component {
 
   render() {
     const {
+      id,
       number,
       url,
       previousEpisode,
@@ -156,7 +157,7 @@ class EpisodePage extends React.Component {
               url
                 ? (
                   <Player
-                    key={url}
+                    key={id}
                     source={url}
                     startAt={time}
                     theme={serial.slug}

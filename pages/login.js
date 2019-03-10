@@ -30,15 +30,13 @@ class LoginPage extends React.Component {
       const { token, user } = await API.login({ name, password });
       const { hostname } = document.location;
 
-      if (token) {
-        cookies.set({}, 'token', token, { domain: hostname });
-        cookies.set({}, 'user', JSON.stringify(user), { domain: hostname });
-        Router.push('/');
-      } else {
-        window.alert('Неправильний пароль');
-      }
+      cookies.set({}, 'token', token, { domain: hostname });
+      cookies.set({}, 'user', JSON.stringify(user), { domain: hostname });
+      Router.push('/');
     } catch (error) {
-      console.error(error);
+      cookies.destroy({}, 'token');
+      cookies.destroy({}, 'user');
+      window.alert(error.message);
     } finally {
       this.setState({ loginInProgress: false });
     }

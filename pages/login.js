@@ -1,5 +1,4 @@
 import React from 'react';
-import cookies from 'nookies';
 import Router from 'next/router';
 
 import Input from '../components/ui/Input';
@@ -23,19 +22,11 @@ class LoginPage extends React.Component {
 
     this.setState({ loginInProgress: true });
 
-    cookies.destroy({}, 'token');
-    cookies.destroy({}, 'user');
-
     try {
-      const { token, user } = await API.login({ name, password });
-      const { hostname } = document.location;
+      await API.login({ name, password });
 
-      cookies.set({}, 'token', token, { domain: hostname });
-      cookies.set({}, 'user', JSON.stringify(user), { domain: hostname });
       Router.push('/');
     } catch (error) {
-      cookies.destroy({}, 'token');
-      cookies.destroy({}, 'user');
       window.alert(error.message);
     } finally {
       this.setState({ loginInProgress: false });

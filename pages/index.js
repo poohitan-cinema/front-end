@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import { parseCookies, destroyCookie } from 'nookies';
+import { parseCookies } from 'nookies';
 
 import Layout from '../components/Layout';
 import MovieSerialPreview from '../components/MovieSerialPreview';
@@ -30,8 +30,6 @@ class IndexPage extends React.Component {
         lastMovieView,
       };
     } catch (error) {
-      destroyCookie({ req }, 'token');
-
       return global.window ? Router.replace('/login') : res.redirect('/login');
     }
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import Head from 'next/head';
-import { parseCookies, destroyCookie } from 'nookies';
+import { parseCookies } from 'nookies';
 
 import CurrentUserContext from '../contexts/current-user';
 
@@ -30,7 +30,6 @@ class MoviePage extends React.Component {
       return { ...movie, time: Number(time) };
     } catch (error) {
       console.error(error);
-      destroyCookie({ req }, 'token');
 
       return global.window ? Router.replace('/login') : res.redirect('/login');
     }

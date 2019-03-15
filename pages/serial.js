@@ -22,8 +22,8 @@ class SerialPage extends React.Component {
     const cookies = parseCookies({ req });
 
     try {
-      const serial = await API.getSerial({ slug }, { cookies });
-      const lastEpisodeView = await API.getLastEpisodeView({ serialId: serial.id }, { cookies });
+      const serial = await API.serials.getOne({ slug }, { cookies });
+      const lastEpisodeView = await API.videoViews.getForLastEpisode({ serialId: serial.id }, { cookies });
 
       return { ...serial, lastEpisodeView };
     } catch (error) {

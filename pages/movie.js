@@ -25,7 +25,7 @@ class MoviePage extends React.Component {
     const cookies = parseCookies({ req });
 
     try {
-      const [movie] = await API.getMovies({ slug }, { cookies });
+      const [movie] = await API.movies.getMany({ slug }, { cookies });
 
       return { ...movie, time: Number(time) };
     } catch (error) {
@@ -64,7 +64,7 @@ class MoviePage extends React.Component {
       return Promise.resolve();
     }
 
-    return API.trackVideoView({
+    return API.videoViews.track({
       endTime: currentPlayerTime,
       videoId,
       userId,
@@ -78,7 +78,7 @@ class MoviePage extends React.Component {
     const { title, description } = this.state;
     const cookies = parseCookies();
 
-    return API.updateMovie(id, { title, description }, { cookies });
+    return API.movies.update(id, { title, description }, { cookies });
   }
 
   render() {

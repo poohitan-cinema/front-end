@@ -67,45 +67,42 @@ async function getLastView(type, query, { cookies } = {}) {
   });
 }
 
-const getSerials = (...params) => getMany('serials', ...params);
-const getEpisodes = (...params) => getMany('episodes', ...params);
-const getSeasons = (...params) => getMany('seasons', ...params);
-const getMovies = (...params) => getMany('movies', ...params);
+async function parseTorrentContent(torrent, { cookies } = {}) {
+  const formData = new FormData();
 
-const getSerial = (...params) => getDetailed('serials', ...params);
-const getSeason = (...params) => getDetailed('seasons', ...params);
-const getEpisode = (...params) => getDetailed('episodes', ...params);
+  formData.append('torrent', torrent);
 
-const getRandomEpisode = (...params) => getRandom('episodes', ...params);
-const getRandomMovie = (...params) => getRandom('movies', ...params);
+  return request({
+    url: `${apiURL}/video-processing/parse-torrent-content`,
+    method: 'POST',
+    formData: true,
+    body: formData,
+    cookies,
+  });
+}
 
-const updateEpisode = (...params) => update('episodes', ...params);
-const updateMovie = (...params) => update('movies', ...params);
-
-const getVideoViews = (...params) => getMany('video-views', ...params);
-const getLastEpisodeView = (...params) => getLastView('episodes', ...params);
-const getLastMovieView = (...params) => getLastView('movies', ...params);
+const generateEndpointsFor = modelName => ({
+  getMany: (...params) => getMany(modelName, ...params),
+  getOne: (...params) => getDetailed(modelName, ...params),
+  getRandom: (...params) => getRandom(modelName, ...params),
+  update: (...params) => update(modelName, ...params),
+});
 
 export default {
   login,
 
-  getSerials,
-  getSerial,
+  movies: generateEndpointsFor('movies'),
+  serials: generateEndpointsFor('serials'),
+  seasons: generateEndpointsFor('seasons'),
+  episodes: generateEndpointsFor('episodes'),
+  videoViews: {
+    ...generateEndpointsFor('video-views'),
+    track: trackVideoView,
+    getForLastEpisode: (...params) => getLastView('episodes', ...params),
+    getForLastMovie: (...params) => getLastView('movies', ...params),
+  },
 
-  getSeasons,
-  getSeason,
-
-  getEpisodes,
-  getEpisode,
-  getRandomEpisode,
-  updateEpisode,
-
-  getMovies,
-  getRandomMovie,
-  updateMovie,
-
-  getVideoViews,
-  trackVideoView,
-  getLastEpisodeView,
-  getLastMovieView,
+  processVideos: {
+    parseTorrentContent,
+  },
 };

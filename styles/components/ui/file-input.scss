@@ -1,0 +1,58 @@
+@import '../../variables';
+@import '../../mixins/input';
+
+.wrapper {
+  .content {
+    @include input;
+
+    background-color: $white;
+    color: $dark-grey;
+    transition: all 100ms linear;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grey;
+      border-color: $grey;
+      color: $white;
+
+      .icon {
+        color: $white;
+      }
+    }
+  }
+
+  .label {
+    margin-left: .5em;
+  }
+
+  .filename {
+    color: $grey;
+    font-size: .7em;
+    margin-left: 1em;
+  }
+
+  .native-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  &.disabled {
+    .content {
+      pointer-events: none;
+      background-color: $grey;
+      color: transparentize($dark-grey, .5);
+
+      .icon {
+        color: transparentize($dark-grey, .5);
+      }
+    }
+
+    .filename {
+      opacity: .8;
+    }
+  }
+}

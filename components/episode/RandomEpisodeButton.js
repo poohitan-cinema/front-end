@@ -15,7 +15,7 @@ class RandomEpisodeButton extends React.Component {
 
   async redirectToRandomEpisode() {
     const { serialId } = this.props;
-    const { number, season, serial } = await API.getRandomEpisode({ serialId });
+    const { number, season, serial } = await API.episodes.getRandom({ serialId });
 
     Router.push(
       `/episode?number=${number}&seasonNumber=${season.number}&serialSlug=${serial.slug}`,

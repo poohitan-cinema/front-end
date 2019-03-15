@@ -32,7 +32,7 @@ class EpisodePage extends React.Component {
     const cookies = parseCookies({ req });
 
     try {
-      const episode = await API.getEpisode({ number, seasonNumber, serialSlug }, { cookies });
+      const episode = await API.episodes.getOne({ number, seasonNumber, serialSlug }, { cookies });
 
       return { ...episode, time: Number(time) };
     } catch (error) {
@@ -79,7 +79,7 @@ class EpisodePage extends React.Component {
     const { videoId } = this.props;
     const { currentPlayerTime } = this.state;
 
-    return API.trackVideoView({
+    return API.videoViews.track({
       endTime: currentPlayerTime,
       videoId,
       userId,
@@ -93,7 +93,7 @@ class EpisodePage extends React.Component {
     const { title, description } = this.state;
     const cookies = parseCookies();
 
-    return API.updateEpisode(id, { title, description }, { cookies });
+    return API.episodes.update(id, { title, description }, { cookies });
   }
 
   render() {

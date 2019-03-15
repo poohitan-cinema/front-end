@@ -61,7 +61,7 @@ SeasonPage.getInitialProps = async ({ req, res, query }) => {
   const cookies = parseCookies({ req });
 
   try {
-    const season = await API.getSeason({ number, serialSlug }, { cookies });
+    const season = await API.seasons.getOne({ number, serialSlug }, { cookies });
 
     return season;
   } catch (error) {

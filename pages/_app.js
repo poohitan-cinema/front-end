@@ -17,7 +17,10 @@ class MyApp extends App {
       pageProps = await Component.getInitialProps(ctx);
     }
 
-    const { user, token } = cookies.get(ctx);
+    const parsedCookies = cookies.get(ctx);
+    const user = parsedCookies['cinema-user'];
+    const token = parsedCookies['cinema-token'];
+
     const currentUser = user ? {
       token,
       ...JSON.parse(user),

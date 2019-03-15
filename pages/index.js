@@ -18,10 +18,10 @@ class IndexPage extends React.Component {
     const cookies = parseCookies({ req });
 
     try {
-      const serials = await API.getSerials({}, { cookies });
-      const movies = await API.getMovies({}, { cookies });
-      const lastEpisodeView = await API.getLastEpisodeView({}, { cookies });
-      const lastMovieView = await API.getLastMovieView({}, { cookies });
+      const serials = await API.serials.getMany({}, { cookies });
+      const movies = await API.movies.getMany({}, { cookies });
+      const lastEpisodeView = await API.videoViews.getForLastEpisode({}, { cookies });
+      const lastMovieView = await API.videoViews.getForLastMovie({}, { cookies });
 
       return {
         serials,

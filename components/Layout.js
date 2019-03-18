@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 import { initGA, logPageView } from '../services/analytics';
 import Logo from './ui/Logo';
@@ -19,11 +20,29 @@ class Layout extends React.Component {
   render() {
     const { children } = this.props;
 
+    // TODO: create a separate component for menu
+    const menuItems = [
+      {
+        href: '/updates',
+        title: 'Останні завантаження',
+      },
+    ];
+
     return (
       <div className={styles.wrapper}>
         <div className={styles.layout}>
-          <div className={styles.logoWrapper}>
+          <div className={styles.header}>
             <Logo />
+            <div className={styles.menu}>
+              {
+                menuItems
+                  .map(item => (
+                    <Link href={item.href} as={item.as}>
+                      <a className={styles.menuItem}>{item.title}</a>
+                    </Link>
+                  ))
+              }
+            </div>
           </div>
 
           { children }

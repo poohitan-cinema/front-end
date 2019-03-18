@@ -13,10 +13,26 @@
   max-width: 1600px;
 }
 
-.logo-wrapper {
+.header {
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5em;
+}
+
+.menu {
+  margin-left: 1em;
+}
+
+.menu-item {
+  opacity: .6;
+  font-size: .7em;
+  margin-left: 1em;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 @media (max-width: 800px) {

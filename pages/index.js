@@ -30,6 +30,8 @@ class IndexPage extends React.Component {
         lastMovieView,
       };
     } catch (error) {
+      console.error(error);
+
       return global.window ? Router.replace('/login') : res.redirect('/login');
     }
   }

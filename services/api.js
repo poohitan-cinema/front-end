@@ -81,6 +81,14 @@ async function parseTorrentContent(torrent, { cookies } = {}) {
   });
 }
 
+async function getUpdates(query, { cookies } = {}) {
+  return request({
+    url: `${apiURL}/updates`,
+    query,
+    cookies,
+  });
+}
+
 const generateEndpointsFor = modelName => ({
   getMany: (...params) => getMany(modelName, ...params),
   getOne: (...params) => getDetailed(modelName, ...params),
@@ -101,6 +109,8 @@ export default {
     getForLastEpisode: (...params) => getLastView('episodes', ...params),
     getForLastMovie: (...params) => getLastView('movies', ...params),
   },
+
+  getUpdates,
 
   processVideos: {
     parseTorrentContent,

@@ -1,0 +1,44 @@
+@import '../variables';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.list {
+  position: relative;
+}
+
+.item {
+  font-size: .65em;
+  transition: background-color 100ms linear;
+
+  display: block;
+  padding: .7em;
+
+  border-bottom: 1px solid $dark-grey;
+
+  &:hover {
+    background-color: $dark-grey;
+  }
+
+  .date {
+    opacity: .6;
+    margin-left: .6em;
+  }
+}
+
+.shadow {
+  background: linear-gradient(to top, $extra-dark-grey, transparent);
+
+  width: 100%;
+  height: 30em;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  pointer-events: none;
+}

@@ -26,7 +26,8 @@
     white-space: nowrap;
   }
 
-  &:hover {
+  &:hover,
+  &.active {
     background-color: $grey;
     border-color: $grey;
     color: $white;
@@ -55,7 +56,8 @@
       color: $grey;
     }
 
-    &:hover {
+    &:hover,
+    &.active {
       border-color: $light-grey;
       background-color: transparent;
       color: $light-grey;

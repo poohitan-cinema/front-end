@@ -67,6 +67,14 @@ async function getLastView(type, query, { cookies } = {}) {
   });
 }
 
+async function getViewStats(query, { cookies } = {}) {
+  return request({
+    url: `${apiURL}/video-views/stats`,
+    query,
+    cookies,
+  });
+}
+
 async function parseTorrentContent(torrent, { cookies } = {}) {
   const formData = new FormData();
 
@@ -104,10 +112,11 @@ export default {
   seasons: generateEndpointsFor('seasons'),
   episodes: generateEndpointsFor('episodes'),
   videoViews: {
-    ...generateEndpointsFor('video-views'),
     track: trackVideoView,
+    ...generateEndpointsFor('video-views'),
     getForLastEpisode: (...params) => getLastView('episodes', ...params),
     getForLastMovie: (...params) => getLastView('movies', ...params),
+    getStats: (...params) => getViewStats(...params),
   },
 
   getUpdates,

@@ -26,6 +26,10 @@ class Layout extends React.Component {
         href: '/updates',
         title: 'Останні завантаження',
       },
+      {
+        href: '/stats',
+        title: 'Статистика',
+      },
     ];
 
     return (
@@ -37,7 +41,7 @@ class Layout extends React.Component {
               {
                 menuItems
                   .map(item => (
-                    <Link href={item.href} as={item.as}>
+                    <Link href={item.href} as={item.as} key={item.title}>
                       <a className={styles.menuItem}>{item.title}</a>
                     </Link>
                   ))

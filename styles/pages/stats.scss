@@ -1,0 +1,40 @@
+@import '../variables';
+
+.wrapper {
+
+}
+
+.header {
+  display: flex;
+  align-items:center;
+  margin: 4em 0;
+
+  .filter {
+    margin-left: 1em;
+  }
+}
+
+.section {
+  margin: 2em 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1.5em;
+  margin: 1em 0;
+}
+
+.chart {
+  padding: 1em 1em .5em 1em;
+  background-color: $dark-grey;
+}
+
+.list {
+  font-size: 1.2em;
+  margin-left: 1em;
+
+  .name {
+    font-weight: bold;
+  }
+}

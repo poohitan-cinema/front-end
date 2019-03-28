@@ -134,7 +134,9 @@ function RGBARainbow(numberOfColors = 7, { opacity = 1 } = {}) {
   });
 }
 
-function RGBAToCSSString({ r, g, b, a = 1 }) {
+function RGBAToCSSString({
+  r, g, b, a = 1,
+}) {
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
 

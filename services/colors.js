@@ -74,8 +74,6 @@ function stringToRGBA(string, { opacity = 1 } = {}) {
   const hue = (Math.cos(power) + 1) / 2;
   const { r, g, b } = HSLToRGB(hue, 0.5, 1);
 
-  console.log('hue', hue);
-
   return {
     r,
     g,

@@ -71,16 +71,15 @@ class StatsPage extends React.Component {
 
   static generateChartData(data) {
     const labels = data.map(item => item.label);
+    const colors = labels.map(label => Colors.stringToHEX(label));
 
     return {
       labels,
       datasets: [
         {
           data: data.map(item => item.value),
-          backgroundColor: Colors.RGBARainbow(labels.length, { opacity: 0.8 })
-            .map(color => Colors.RGBAToCSSString(color)),
-          hoverBackgroundColor: Colors.RGBARainbow(labels.length)
-            .map(color => Colors.RGBAToCSSString(color)),
+          backgroundColor: colors.map(color => `${color}dd`),
+          hoverBackgroundColor: colors,
         },
       ],
     };

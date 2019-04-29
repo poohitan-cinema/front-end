@@ -70,8 +70,8 @@ function RGBToHEX(r, g, b) {
 
 function stringToRGBA(string, { opacity = 1 } = {}) {
   const asciiCodes = string.split('').map(char => char.charCodeAt());
-  const power = asciiCodes.reduce((prevCode, code) => prevCode * code, 1);
-  const hue = (Math.cos(power) + 1) / 2;
+  const sum = asciiCodes.reduce((prevCode, code, index) => prevCode + code + index, 0);
+  const hue = Math.abs(Math.cos(sum));
   const { r, g, b } = HSLToRGB(hue, 0.5, 1);
 
   return {

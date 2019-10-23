@@ -1,6 +1,5 @@
 import React from 'react';
 import Router from 'next/router';
-import { destroyCookie } from 'nookies';
 
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
@@ -29,9 +28,6 @@ class LoginPage extends React.Component {
       Router.push('/');
     } catch (error) {
       window.alert(error.message);
-
-      destroyCookie('cinema-token');
-      destroyCookie('cinema-user');
     } finally {
       this.setState({ loginInProgress: false });
     }

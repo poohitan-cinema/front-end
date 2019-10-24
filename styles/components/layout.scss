@@ -40,4 +40,13 @@
     width: 90%;
     padding: 2em 0;
   }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .menu {
+    margin-left: 0;
+    margin-top: 1em;
+  }
 }

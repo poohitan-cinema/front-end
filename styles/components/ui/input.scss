@@ -21,6 +21,7 @@
     @include input;
 
     background-color: $white;
+    filter: none;
     width: 100%;
 
     transition: border-color 100ms linear;

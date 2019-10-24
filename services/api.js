@@ -111,6 +111,16 @@ export default {
   serials: generateEndpointsFor('serials'),
   seasons: generateEndpointsFor('seasons'),
   episodes: generateEndpointsFor('episodes'),
+  users: {
+    ...generateEndpointsFor('users'),
+    getOne(id, { cookies }) {
+      return request({
+        url: `${apiURL}/users/${id}`,
+        cookies,
+      });
+    },
+  },
+
   videoViews: {
     track: trackVideoView,
     ...generateEndpointsFor('video-views'),

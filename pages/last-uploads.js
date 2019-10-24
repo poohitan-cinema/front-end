@@ -7,20 +7,24 @@ import moment from 'moment';
 import { parseCookies } from 'nookies';
 
 import config from '../config';
+
+import withSession from '../hocs/withSession';
+
 import Layout from '../components/Layout';
+import FireLight from '../components/ui/FireLight';
 import API from '../services/api';
 
-import styles from '../styles/pages/updates.scss';
+import styles from '../styles/pages/last-uploads.scss';
 
-class UpdatesPage extends React.Component {
+class LastUploadsPage extends React.Component {
   static async getInitialProps({ req, res }) {
     const cookies = parseCookies({ req });
 
     try {
-      const updates = await API.getUpdates({}, { cookies });
+      const lastUploads = await API.getLastUploads({}, { cookies });
 
       return {
-        updates,
+        lastUploads,
       };
     } catch (error) {
       console.error(error);
@@ -30,7 +34,7 @@ class UpdatesPage extends React.Component {
   }
 
   render() {
-    const { updates } = this.props;
+    const { lastUploads } = this.props;
 
     return (
       <Layout>
@@ -38,7 +42,13 @@ class UpdatesPage extends React.Component {
         <div className={styles.wrapper}>
           <div className={styles.list}>
             {
-              updates
+              lastUploads
+                .fresh
+                .map(item => <UpdatesItem isFresh key={item.id} {...item} />)
+            }
+            {
+              lastUploads
+                .rest
                 .map(item => <UpdatesItem key={item.id} {...item} />)
             }
             <div className={styles.shadow} />
@@ -49,16 +59,19 @@ class UpdatesPage extends React.Component {
   }
 }
 
-UpdatesPage.propTypes = {
-  updates: PropTypes.arrayOf(PropTypes.object),
+LastUploadsPage.propTypes = {
+  lastUploads: PropTypes.shape({
+    fresh: PropTypes.array,
+    rest: PropTypes.array,
+  }),
 };
 
-UpdatesPage.defaultProps = {
-  updates: [],
+LastUploadsPage.defaultProps = {
+  lastUploads: {},
 };
 
 const UpdatesItem = ({
-  title, number, seasonNumber, serialSlug, serialTitle, slug, type, timestamp,
+  title, number, seasonNumber, serialSlug, serialTitle, slug, type, timestamp, isFresh,
 }) => {
   const isEpisode = type === 'episode';
   const href = isEpisode
@@ -73,10 +86,18 @@ const UpdatesItem = ({
     : title;
 
   const date = moment(timestamp).format('DD/MM, HH:mm');
+  const classList = [styles.item];
+
+  if (isFresh) {
+    classList.push(styles.itemNew);
+  }
 
   return (
     <Link href={href} as={as}>
-      <a className={styles.item}>
+      <a className={classList.join(' ')}>
+        {
+          isFresh ? <FireLight title="Нове" className={styles.firelight} /> : null
+        }
         <span className={styles.title}>
           {itemTitle}
         </span>
@@ -97,6 +118,7 @@ UpdatesItem.propTypes = {
   serialTitle: PropTypes.string,
   slug: PropTypes.string,
   type: PropTypes.string.isRequired,
+  isFresh: PropTypes.bool,
 };
 
 UpdatesItem.defaultProps = {
@@ -106,6 +128,7 @@ UpdatesItem.defaultProps = {
   serialSlug: '',
   serialTitle: '',
   slug: '',
+  isFresh: false,
 };
 
-export default UpdatesPage;
+export default withSession(LastUploadsPage);

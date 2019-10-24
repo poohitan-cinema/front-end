@@ -89,9 +89,9 @@ async function parseTorrentContent(torrent, { cookies } = {}) {
   });
 }
 
-async function getUpdates(query, { cookies } = {}) {
+async function getLastUploads(query, { cookies } = {}) {
   return request({
-    url: `${apiURL}/updates`,
+    url: `${apiURL}/last-uploads`,
     query,
     cookies,
   });
@@ -111,6 +111,16 @@ export default {
   serials: generateEndpointsFor('serials'),
   seasons: generateEndpointsFor('seasons'),
   episodes: generateEndpointsFor('episodes'),
+  users: {
+    ...generateEndpointsFor('users'),
+    getOne(id, { cookies }) {
+      return request({
+        url: `${apiURL}/users/${id}`,
+        cookies,
+      });
+    },
+  },
+
   videoViews: {
     track: trackVideoView,
     ...generateEndpointsFor('video-views'),
@@ -119,7 +129,7 @@ export default {
     getStats: (...params) => getViewStats(...params),
   },
 
-  getUpdates,
+  getLastUploads,
 
   processVideos: {
     parseTorrentContent,

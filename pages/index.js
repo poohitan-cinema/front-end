@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { parseCookies } from 'nookies';
 
+import withSession from '../hocs/withSession';
+import withLastUploads from '../hocs/withLastUploads';
+
 import Layout from '../components/Layout';
 import MovieSerialPreview from '../components/MovieSerialPreview';
 import RandomEpisodeButton from '../components/episode/RandomEpisodeButton';
@@ -42,10 +45,11 @@ class IndexPage extends React.Component {
       movies,
       lastEpisodeView,
       lastMovieView,
+      lastUploads,
     } = this.props;
 
     return (
-      <Layout>
+      <Layout freshUploads={lastUploads.fresh}>
         <div className={styles.section}>
           <div className={styles.header}>
             <h1>Серіали</h1>
@@ -55,7 +59,7 @@ class IndexPage extends React.Component {
               }
               {
                 serials.length
-                  ? <RandomEpisodeButton />
+                  ? <RandomEpisodeButton className={styles.totallyRandomButton} />
                   : null
               }
             </div>
@@ -79,7 +83,7 @@ class IndexPage extends React.Component {
               }
               {
                 movies.length
-                  ? <RandomMovieButton />
+                  ? <RandomMovieButton className={styles.totallyRandomButton} />
                   : null
               }
             </div>
@@ -119,6 +123,10 @@ IndexPage.propTypes = {
     movieSlug: PropTypes.string,
     endTime: PropTypes.number,
   }),
+  lastUploads: PropTypes.shape({
+    fresh: PropTypes.bool,
+    number: PropTypes.number,
+  }),
 };
 
 IndexPage.defaultProps = {
@@ -126,6 +134,7 @@ IndexPage.defaultProps = {
   movies: [],
   lastEpisodeView: null,
   lastMovieView: null,
+  lastUploads: {},
 };
 
-export default IndexPage;
+export default withLastUploads(withSession(IndexPage));

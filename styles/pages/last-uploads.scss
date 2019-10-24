@@ -15,7 +15,7 @@
   font-size: .65em;
   transition: background-color 100ms linear;
 
-  display: block;
+  display: flex;
   padding: .7em;
 
   border-bottom: 1px solid $dark-grey;
@@ -28,6 +28,11 @@
     opacity: .6;
     margin-left: .6em;
   }
+}
+
+.firelight {
+  color: $fire;
+  margin-right: .5em;
 }
 
 .shadow {

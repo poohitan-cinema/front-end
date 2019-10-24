@@ -5,6 +5,8 @@ import { parseCookies } from 'nookies';
 
 import config from '../config';
 
+import withSession from '../hocs/withSession';
+
 import Layout from '../components/Layout';
 import FileInput from '../components/ui/FileInput';
 
@@ -75,4 +77,4 @@ class VideoProcessingPage extends React.Component {
   }
 }
 
-export default VideoProcessingPage;
+export default withSession(VideoProcessingPage);

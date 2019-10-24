@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Router from 'next/router';
 
 import API from '../../services/api';
@@ -16,8 +17,18 @@ class RandomMovieButton extends React.Component {
   }
 
   render() {
-    return <Button light icon="fas fa-magic" onClick={RandomMovieButton.redirectToRandomMovie}>Випадковий фільм</Button>;
+    const { className } = this.props;
+
+    return <Button light icon="fas fa-magic" className={className} onClick={RandomMovieButton.redirectToRandomMovie}>Випадковий фільм</Button>;
   }
 }
+
+RandomMovieButton.propTypes = {
+  className: PropTypes.string,
+};
+
+RandomMovieButton.defaultProps = {
+  className: '',
+};
 
 export default RandomMovieButton;

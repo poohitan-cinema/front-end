@@ -4,9 +4,9 @@ import Router from 'next/router';
 import Head from 'next/head';
 import { parseCookies } from 'nookies';
 
-import CurrentUserContext from '../contexts/current-user';
-
 import config from '../config';
+
+import withSession from '../hocs/withSession';
 
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -56,8 +56,8 @@ class MoviePage extends React.Component {
   }
 
   async trackView() {
-    const { id: userId, token } = this.context;
-    const { videoId, time } = this.props;
+    const { videoId, time, session } = this.props;
+    const { currentUser, token } = session;
     const { currentPlayerTime } = this.state;
 
     if (currentPlayerTime === time) {
@@ -67,7 +67,7 @@ class MoviePage extends React.Component {
     return API.videoViews.track({
       endTime: currentPlayerTime,
       videoId,
-      userId,
+      userId: currentUser.id,
       token,
     });
   }
@@ -88,10 +88,11 @@ class MoviePage extends React.Component {
       url,
       slug,
       time,
+      session,
     } = this.props;
 
     const { title, description } = this.state;
-    const currentUser = this.context;
+    const { currentUser } = session;
     const isAdmin = currentUser.role === 'admin';
 
     const breadcrumbs = [
@@ -148,6 +149,7 @@ MoviePage.propTypes = {
   url: PropTypes.string.isRequired,
   time: PropTypes.number,
   videoId: PropTypes.string,
+  session: PropTypes.shape({}).isRequired,
 };
 
 MoviePage.defaultProps = {
@@ -157,6 +159,4 @@ MoviePage.defaultProps = {
   videoId: null,
 };
 
-MoviePage.contextType = CurrentUserContext;
-
-export default MoviePage;
+export default withSession(MoviePage);

@@ -24,21 +24,23 @@ class RandomEpisodeButton extends React.Component {
   }
 
   render() {
-    const { serialId, theme } = this.props;
+    const { serialId, theme, className } = this.props;
     const label = serialId ? 'Випадкова серія' : 'Геть випадкова серія';
 
-    return <Button light icon="fas fa-magic" theme={theme} onClick={this.redirectToRandomEpisode}>{label}</Button>;
+    return <Button light icon="fas fa-magic" theme={theme} className={className} onClick={this.redirectToRandomEpisode}>{label}</Button>;
   }
 }
 
 RandomEpisodeButton.propTypes = {
   serialId: PropTypes.string,
   theme: PropTypes.string,
+  className: PropTypes.string,
 };
 
 RandomEpisodeButton.defaultProps = {
   serialId: null,
   theme: '',
+  className: '',
 };
 
 export default RandomEpisodeButton;

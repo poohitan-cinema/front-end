@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import { initGA, logPageView } from '../services/analytics';
 import Logo from './ui/Logo';
+import FireLight from './ui/FireLight';
 
 import styles from '../styles/components/layout.scss';
 
@@ -18,13 +19,14 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, freshUploads } = this.props;
 
     // TODO: create a separate component for menu
     const menuItems = [
       {
-        href: '/updates',
+        href: '/last-uploads',
         title: 'Останні завантаження',
+        highlighted: freshUploads,
       },
       {
         href: '/stats',
@@ -42,7 +44,15 @@ class Layout extends React.Component {
                 menuItems
                   .map(item => (
                     <Link href={item.href} as={item.as} key={item.title}>
-                      <a className={styles.menuItem}>{item.title}</a>
+                      <a className={styles.menuItem}>
+                        <span>{item.title}</span>
+                        {
+                          item.highlighted
+                            ? <FireLight title="Є шось нове" className={styles.menuItemHighlight} />
+                            : null
+                        }
+                      </a>
+
                     </Link>
                   ))
               }
@@ -57,7 +67,12 @@ class Layout extends React.Component {
 }
 
 Layout.propTypes = {
+  freshUploads: PropTypes.bool,
   children: PropTypes.node.isRequired,
+};
+
+Layout.defaultProps = {
+  freshUploads: false,
 };
 
 export default Layout;

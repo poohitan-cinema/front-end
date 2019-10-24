@@ -4,11 +4,19 @@ import Router from 'next/router';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 
-import API from '../services/api';
+import { logIn, isAuthenticated } from '../services/session';
 
 import styles from '../styles/pages/login.scss';
 
 class LoginPage extends React.Component {
+  static async getInitialProps({ req, res }) {
+    if (isAuthenticated(req)) {
+      res.redirect('/');
+    }
+
+    return {};
+  }
+
   constructor(props) {
     super(props);
 
@@ -23,7 +31,7 @@ class LoginPage extends React.Component {
     this.setState({ loginInProgress: true });
 
     try {
-      await API.login({ name, password });
+      await logIn({ name, password });
 
       Router.push('/');
     } catch (error) {

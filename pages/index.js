@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { parseCookies } from 'nookies';
 
+import withSession from '../hocs/withSession';
+
 import Layout from '../components/Layout';
 import MovieSerialPreview from '../components/MovieSerialPreview';
 import RandomEpisodeButton from '../components/episode/RandomEpisodeButton';
@@ -55,7 +57,7 @@ class IndexPage extends React.Component {
               }
               {
                 serials.length
-                  ? <RandomEpisodeButton />
+                  ? <RandomEpisodeButton className={styles.totallyRandomButton} />
                   : null
               }
             </div>
@@ -79,7 +81,7 @@ class IndexPage extends React.Component {
               }
               {
                 movies.length
-                  ? <RandomMovieButton />
+                  ? <RandomMovieButton className={styles.totallyRandomButton} />
                   : null
               }
             </div>
@@ -128,4 +130,4 @@ IndexPage.defaultProps = {
   lastMovieView: null,
 };
 
-export default IndexPage;
+export default withSession(IndexPage);

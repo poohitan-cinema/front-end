@@ -4,9 +4,9 @@ import Router from 'next/router';
 import Head from 'next/head';
 import { parseCookies } from 'nookies';
 
-import CurrentUserContext from '../contexts/current-user';
-
 import config from '../config';
+
+import withSession from '../hocs/withSession';
 
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -75,14 +75,14 @@ class EpisodePage extends React.Component {
   }
 
   async trackView() {
-    const { id: userId, token } = this.context;
-    const { videoId } = this.props;
+    const { videoId, session } = this.props;
+    const { currentUser, token } = session;
     const { currentPlayerTime } = this.state;
 
     return API.videoViews.track({
       endTime: currentPlayerTime,
       videoId,
-      userId,
+      userId: currentUser.id,
       token,
     });
   }
@@ -106,10 +106,11 @@ class EpisodePage extends React.Component {
       serial,
       season,
       time,
+      session,
     } = this.props;
 
     const { title, description } = this.state;
-    const currentUser = this.context;
+    const { currentUser } = session;
     const isAdmin = currentUser.role === 'admin';
 
     const breadcrumbs = [
@@ -225,6 +226,7 @@ EpisodePage.propTypes = {
   season: PropTypes.shape({
     id: PropTypes.string,
   }).isRequired,
+  session: PropTypes.shape({}).isRequired,
 };
 
 EpisodePage.defaultProps = {
@@ -240,6 +242,4 @@ EpisodePage.defaultProps = {
   },
 };
 
-EpisodePage.contextType = CurrentUserContext;
-
-export default EpisodePage;
+export default withSession(EpisodePage);

@@ -6,6 +6,8 @@ import { parseCookies } from 'nookies';
 
 import config from '../config';
 
+import withSession from '../hocs/withSession';
+
 import Layout from '../components/Layout';
 import SeasonPreview from '../components/SeasonPreview';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -96,4 +98,4 @@ SerialPage.defaultProps = {
   lastEpisodeView: null,
 };
 
-export default SerialPage;
+export default withSession(SerialPage);

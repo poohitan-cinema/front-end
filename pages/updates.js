@@ -7,6 +7,9 @@ import moment from 'moment';
 import { parseCookies } from 'nookies';
 
 import config from '../config';
+
+import withSession from '../hocs/withSession';
+
 import Layout from '../components/Layout';
 import API from '../services/api';
 
@@ -108,4 +111,4 @@ UpdatesItem.defaultProps = {
   slug: '',
 };
 
-export default UpdatesPage;
+export default withSession(UpdatesPage);

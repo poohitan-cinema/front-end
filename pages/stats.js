@@ -7,6 +7,9 @@ import { Bar } from 'react-chartjs-2';
 import { parseCookies } from 'nookies';
 
 import config from '../config';
+
+import withSession from '../hocs/withSession';
+
 import Layout from '../components/Layout';
 import API from '../services/api';
 import Colors from '../services/colors';
@@ -253,4 +256,4 @@ StatsPage.defaultProps = {
   stats: [],
 };
 
-export default StatsPage;
+export default withSession(StatsPage);

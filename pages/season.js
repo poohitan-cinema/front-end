@@ -6,6 +6,8 @@ import { parseCookies } from 'nookies';
 
 import config from '../config';
 
+import withSession from '../hocs/withSession';
+
 import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
 import EpisodePreview from '../components/EpisodePreview';
@@ -85,4 +87,4 @@ SeasonPage.defaultProps = {
   episodes: [],
 };
 
-export default SeasonPage;
+export default withSession(SeasonPage);

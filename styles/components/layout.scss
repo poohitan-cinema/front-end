@@ -1,3 +1,5 @@
+@import '../variables';
+
 .wrapper {
   display: flex;
   justify-content: start;
@@ -22,13 +24,20 @@
 }
 
 .menu {
+  display: flex;
   margin-left: 1em;
 }
 
 .menu-item {
-  opacity: .6;
+  color: $grey;
   font-size: .7em;
   margin-left: 1em;
+  display: flex;
+
+  .menu-item-highlight {
+    color: $fire;
+    margin-left: 0.3em;
+  }
 
   &:hover {
     text-decoration: underline;
@@ -46,7 +55,13 @@
   }
 
   .menu {
+    flex-direction: column;
+    align-items: center;
     margin-left: 0;
     margin-top: 1em;
+  }
+
+  .menu-item {
+    padding: 0.5em;
   }
 }

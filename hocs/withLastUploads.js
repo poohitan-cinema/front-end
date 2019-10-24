@@ -1,9 +1,9 @@
 import React from 'react';
 import { parseCookies } from 'nookies';
-import { getCurrentUser } from '../services/session';
+import API from '../services/api';
 
 export default function withSession(WrappedComponent) {
-  class WithSession extends React.Component {
+  class WithLastUploads extends React.Component {
     static currentUser = {};
 
     static async getInitialProps(context) {
@@ -12,10 +12,9 @@ export default function withSession(WrappedComponent) {
       const wrappedComponentProps = WrappedComponent.getInitialProps
         && (await WrappedComponent.getInitialProps(context));
 
-      const currentUser = await getCurrentUser(context.req);
-      const token = cookies['cinema-token'];
+      const lastUploads = await API.getLastUploads({ meta: true }, { cookies });
 
-      return { ...wrappedComponentProps, session: { currentUser, token } };
+      return { ...wrappedComponentProps, lastUploads };
     }
 
     render() {
@@ -23,5 +22,5 @@ export default function withSession(WrappedComponent) {
     }
   }
 
-  return WithSession;
+  return WithLastUploads;
 }

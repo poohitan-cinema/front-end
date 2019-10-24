@@ -89,9 +89,9 @@ async function parseTorrentContent(torrent, { cookies } = {}) {
   });
 }
 
-async function getUpdates(query, { cookies } = {}) {
+async function getLastUploads(query, { cookies } = {}) {
   return request({
-    url: `${apiURL}/updates`,
+    url: `${apiURL}/last-uploads`,
     query,
     cookies,
   });
@@ -129,7 +129,7 @@ export default {
     getStats: (...params) => getViewStats(...params),
   },
 
-  getUpdates,
+  getLastUploads,
 
   processVideos: {
     parseTorrentContent,

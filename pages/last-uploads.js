@@ -44,12 +44,12 @@ class LastUploadsPage extends React.Component {
             {
               lastUploads
                 .fresh
-                .map(item => <UpdatesItem isFresh key={item.id} {...item} />)
+                .map(item => <UploadedItem isFresh key={item.id} {...item} />)
             }
             {
               lastUploads
                 .rest
-                .map(item => <UpdatesItem key={item.id} {...item} />)
+                .map(item => <UploadedItem key={item.id} {...item} />)
             }
             <div className={styles.shadow} />
           </div>
@@ -70,7 +70,7 @@ LastUploadsPage.defaultProps = {
   lastUploads: {},
 };
 
-const UpdatesItem = ({
+const UploadedItem = ({
   title, number, seasonNumber, serialSlug, serialTitle, slug, type, timestamp, isFresh,
 }) => {
   const isEpisode = type === 'episode';
@@ -109,7 +109,7 @@ const UpdatesItem = ({
   );
 };
 
-UpdatesItem.propTypes = {
+UploadedItem.propTypes = {
   title: PropTypes.string,
   timestamp: PropTypes.string.isRequired,
   number: PropTypes.string,
@@ -121,7 +121,7 @@ UpdatesItem.propTypes = {
   isFresh: PropTypes.bool,
 };
 
-UpdatesItem.defaultProps = {
+UploadedItem.defaultProps = {
   title: '',
   number: '',
   seasonNumber: '',

@@ -1,0 +1,61 @@
+@import '../../variables';
+@import '../../mixins/input';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+
+  .checkbox {
+    @include input;
+
+    width: 1em;
+    height: 1em;
+    border-color: $grey;
+    border-radius: 0;
+    padding: .5em;
+  }
+
+  .label {
+    margin-left: .5em;
+    user-select: none;
+  }
+
+  .native-checkbox {
+    position: absolute;
+    left: -10000px;
+    top: -10000px;
+    opacity: 0;
+
+    // background-color: $white;
+    // filter: none;
+    // width: 100%;
+
+    // transition: border-color 100ms linear;
+
+    // &:focus {
+    //   border-color: $grey;
+    // }
+
+    // &.with-icon {
+    //   padding-left: 2em;
+    // }
+  }
+
+  &.checked {
+    .checkbox {
+      border-color: red;
+    }
+  }
+
+  &.disabled {
+    .input {
+      pointer-events: none;
+      background-color: $grey;
+      color: transparentize($dark-grey, .5);
+    }
+
+    .icon {
+      color: transparentize($dark-grey, .5);
+    }
+  }
+}

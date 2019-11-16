@@ -32,6 +32,10 @@ class Layout extends React.Component {
         href: '/stats',
         title: 'Статистика',
       },
+      {
+        href: '/preferences',
+        title: 'Налаштування',
+      },
     ];
 
     return (

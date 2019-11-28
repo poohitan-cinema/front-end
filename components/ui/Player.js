@@ -42,6 +42,8 @@ class Player extends React.Component {
       onTimeUpdate(player.currentTime);
     });
 
+    player.on('loadeddata', () => { player.currentTime = player.currentTime; });
+
     this.setState({ player });
   }
 

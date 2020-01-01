@@ -47,7 +47,7 @@ class StatsPage extends React.Component {
       {
         title: 'Цей місяць',
         from: moment.utc().startOf('month').toISOString(),
-        to: moment.utc().endOf('day').toISOString(),
+        to: moment.utc().endOf('month').toISOString(),
         default: true,
       },
       {
@@ -58,7 +58,7 @@ class StatsPage extends React.Component {
       {
         title: 'Цей рік',
         from: moment.utc().startOf('year').toISOString(),
-        to: moment.utc().endOf('day').toISOString(),
+        to: moment.utc().endOf('year').toISOString(),
       },
       {
         title: 'Весь час',

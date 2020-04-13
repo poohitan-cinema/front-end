@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-import styles from '../../styles/components/breadcrumbs.scss';
+import dashToCamel from '../../helpers/dash-to-camel';
+import styles from '../../styles/components/breadcrumbs.module.scss';
 
 const Breadcrumb = ({
   title, icon, href, as, theme, disabled,
@@ -11,8 +12,8 @@ const Breadcrumb = ({
     {
       icon && <div className={styles.icon} style={{ backgroundImage: `url("${icon}")` }} />
     }
-    <Link href={href} as={as} prefetch>
-      <a className={`${styles.link} ${styles[theme]}`}>{title}</a>
+    <Link href={href} as={as}>
+      <a className={`${styles.link} ${styles[dashToCamel(theme)]}`}>{title}</a>
     </Link>
   </h1>
 );

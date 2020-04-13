@@ -6,7 +6,7 @@ import { initGA, logPageView } from '../services/analytics';
 import Logo from './ui/Logo';
 import FireLight from './ui/FireLight';
 
-import styles from '../styles/components/layout.scss';
+import styles from '../styles/components/layout.module.scss';
 
 class Layout extends React.Component {
   componentDidMount() {

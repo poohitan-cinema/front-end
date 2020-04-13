@@ -14,7 +14,7 @@ import Layout from '../components/Layout';
 import FireLight from '../components/ui/FireLight';
 import API from '../services/api';
 
-import styles from '../styles/pages/last-uploads.scss';
+import styles from '../styles/pages/last-uploads.module.scss';
 
 class LastUploadsPage extends React.Component {
   static async getInitialProps({ req, res }) {

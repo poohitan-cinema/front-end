@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 
-import styles from '../../styles/components/ui/logo.scss';
+import styles from '../../styles/components/ui/logo.module.scss';
 
 const Logo = () => (
-  <Link href="/index" as="/" prefetch>
+  <Link href="/index" as="/">
     <a className={styles.logo}>
       <i className="fas fa-film" />
       <div className={styles.title}>На головну</div>

@@ -23,6 +23,14 @@
   }
 }
 
+.announcement {
+  font-size: 0.75em;
+  opacity: 0.75;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
 .grid {
   display: grid;
 

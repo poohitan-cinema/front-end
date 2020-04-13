@@ -22,7 +22,6 @@ const SiblingEpisodeButton = ({
     <Link
       href={`/episode?number=${episodeNumber}&serialSlug=${serialSlug}&seasonNumber=${seasonNumber}`}
       as={`/serials/${serialSlug}/seasons/${seasonNumber}/episodes/${episodeNumber}`}
-      prefetch
     >
       <a><Button light theme={theme}>{label}</Button></a>
     </Link>

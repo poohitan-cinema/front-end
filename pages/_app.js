@@ -1,9 +1,6 @@
 import React from 'react';
-import App, { Container } from 'next/app';
-import Head from 'next/head';
-import NProgress from 'next-nprogress/component';
+import App from 'next/app';
 
-import config from '../config';
 import '../styles/global.scss';
 
 class MyApp extends App {
@@ -21,11 +18,7 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
 
     return (
-      <Container>
-        <NProgress color="#fff" spinner={false} />
-        <Head><title>{config.pageTitle}</title></Head>
-        <Component {...pageProps} />
-      </Container>
+      <Component {...pageProps} />
     );
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from '../../styles/components/ui/input.scss';
+import styles from '../../styles/components/ui/input.module.scss';
 
 const Input = ({
   placeholder, value, icon, type, disabled, onChange, className,

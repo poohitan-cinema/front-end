@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-import styles from '../styles/components/episode-preview.scss';
+import dashToCamel from '../helpers/dash-to-camel';
+import styles from '../styles/components/episode-preview.module.scss';
 
 const EpisodePreview = ({
   number, title, serialSlug, seasonNumber, theme,
@@ -10,9 +11,8 @@ const EpisodePreview = ({
   <Link
     href={`/episode?number=${number}&serialSlug=${serialSlug}&seasonNumber=${seasonNumber}`}
     as={`/serials/${serialSlug}/seasons/${seasonNumber}/episodes/${number}`}
-    prefetch
   >
-    <a className={`${styles.wrapper} ${styles[theme]}`}>
+    <a className={`${styles.wrapper} ${styles[dashToCamel(theme)]}`}>
       <h2 className={styles.number}>{`Серія ${number}`}</h2>
       {
         title && <div className={styles.title}>{title}</div>

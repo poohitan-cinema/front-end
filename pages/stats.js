@@ -17,7 +17,7 @@ import pluralize from '../helpers/pluralize';
 
 import Button from '../components/ui/Button';
 
-import styles from '../styles/pages/stats.scss';
+import styles from '../styles/pages/stats.module.scss';
 
 class StatsPage extends React.Component {
   static async getInitialProps({ req, res, query }) {

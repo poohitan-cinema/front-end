@@ -14,7 +14,7 @@ import EpisodePreview from '../components/EpisodePreview';
 
 import API from '../services/api';
 
-import styles from '../styles/pages/season.scss';
+import styles from '../styles/pages/season.module.scss';
 
 const SeasonPage = ({
   number,

@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
+import Head from 'next/head';
 import { parseCookies } from 'nookies';
 
 import withSession from '../hocs/withSession';
 import withLastUploads from '../hocs/withLastUploads';
+import config from '../config';
 
 import Layout from '../components/Layout';
 import MovieSerialPreview from '../components/MovieSerialPreview';
@@ -14,7 +16,7 @@ import LastViewedThing from '../components/LastViewedThing';
 
 import API from '../services/api';
 
-import styles from '../styles/pages/index.scss';
+import styles from '../styles/pages/index.module.scss';
 
 class IndexPage extends React.Component {
   static async getInitialProps({ req, res }) {
@@ -50,6 +52,9 @@ class IndexPage extends React.Component {
 
     return (
       <Layout freshUploads={lastUploads.fresh}>
+        <Head>
+          <title>{config.pageTitle}</title>
+        </Head>
         <div className={styles.section}>
           <div className={styles.header}>
             <h1>Серіали</h1>

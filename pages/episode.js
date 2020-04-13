@@ -19,7 +19,7 @@ import RandomEpisodeButton from '../components/episode/RandomEpisodeButton';
 
 import API from '../services/api';
 
-import styles from '../styles/pages/movie.scss';
+import styles from '../styles/pages/movie.module.scss';
 
 const DEFAULT_TITLE = 'Тут має бути назва серії';
 const DEFAULT_DESCRIPTION = 'Тут має бути опис серії';

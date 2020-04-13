@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Plyr from 'plyr';
 
-import styles from '../../styles/components/ui/player.scss';
+import dashToCamel from '../../helpers/dash-to-camel';
+import styles from '../../styles/components/ui/player.module.scss';
 
 class Player extends React.Component {
   constructor(props) {
@@ -42,8 +43,6 @@ class Player extends React.Component {
       onTimeUpdate(player.currentTime);
     });
 
-    player.on('loadeddata', () => { player.currentTime = player.currentTime; });
-
     this.setState({ player });
   }
 
@@ -61,7 +60,7 @@ class Player extends React.Component {
     const classList = [styles.wrapper, className];
 
     if (theme) {
-      classList.push(styles[theme]);
+      classList.push(styles[dashToCamel(theme)]);
     }
 
     return (

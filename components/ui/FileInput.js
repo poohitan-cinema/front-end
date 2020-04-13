@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from '../../styles/components/ui/file-input.scss';
+import styles from '../../styles/components/ui/file-input.module.scss';
 
 class FileInput extends React.Component {
   constructor(props) {

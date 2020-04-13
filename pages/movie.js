@@ -15,7 +15,7 @@ import ContentEditable from '../components/ui/ContentEditable';
 
 import API from '../services/api';
 
-import styles from '../styles/pages/movie.scss';
+import styles from '../styles/pages/movie.module.scss';
 
 const DEFAULT_DESCRIPTION = 'Тут має бути опис фільму';
 

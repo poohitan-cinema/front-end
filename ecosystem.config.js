@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: 'cinema-client',
-    script: 'app.js',
+    script: 'server.js',
 
     instances: 1,
     autorestart: true,

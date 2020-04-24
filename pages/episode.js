@@ -33,8 +33,13 @@ class EpisodePage extends React.Component {
 
     try {
       const episode = await API.episodes.getOne({ number, seasonNumber, serialSlug }, { cookies });
+      const { url, ...rest } = episode;
 
-      return { ...episode, time: Number(time) };
+      return {
+        source: url,
+        time: Number(time),
+        ...rest,
+      };
     } catch (error) {
       console.error(error);
 
@@ -100,7 +105,7 @@ class EpisodePage extends React.Component {
     const {
       id,
       number,
-      url,
+      source,
       previousEpisode,
       nextEpisode,
       serial,
@@ -154,11 +159,11 @@ class EpisodePage extends React.Component {
           }
           <div className={styles.playerWrapper}>
             {
-              url
+              source
                 ? (
                   <Player
                     key={id}
-                    source={url}
+                    source={source}
                     startAt={time}
                     theme={serial.slug}
                     onTimeUpdate={currentTime => this.setState({ currentPlayerTime: currentTime })}
@@ -209,7 +214,7 @@ EpisodePage.propTypes = {
   number: PropTypes.string.isRequired,
   title: PropTypes.string,
   description: PropTypes.string,
-  url: PropTypes.string.isRequired,
+  source: PropTypes.string.isRequired,
   videoId: PropTypes.string,
   time: PropTypes.number,
   previousEpisode: PropTypes.shape({

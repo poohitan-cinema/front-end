@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import Head from 'next/head';
-import moment from 'moment';
+import {
+  startOfMonth,
+  endOfMonth,
+  startOfYear,
+  endOfYear,
+  subMonths,
+  endOfToday,
+} from 'date-fns';
 import { Bar } from 'react-chartjs-2';
 import { parseCookies } from 'nookies';
 
@@ -46,30 +53,36 @@ class StatsPage extends React.Component {
     return [
       {
         title: 'Цей місяць',
-        from: moment.utc().startOf('month').toISOString(),
-        to: moment.utc().endOf('month').toISOString(),
+        from: startOfMonth(new Date()),
+        to: endOfMonth(new Date()),
         default: true,
       },
       {
         title: 'Минулий місяць',
-        from: moment.utc().subtract(1, 'months').startOf('month').toISOString(),
-        to: moment.utc().subtract(1, 'months').endOf('month').toISOString(),
+        from: startOfMonth(subMonths(new Date(), 1)),
+        to: endOfMonth(subMonths(new Date(), 1)),
       },
       {
         title: 'Цей рік',
-        from: moment.utc().startOf('year').toISOString(),
-        to: moment.utc().endOf('year').toISOString(),
+        from: startOfYear(new Date()),
+        to: endOfYear(new Date()),
       },
       {
         title: 'Весь час',
-        from: moment(0).toISOString(),
-        to: moment.utc().endOf('day').toISOString(),
+        from: new Date(0),
+        to: endOfToday(),
       },
     ];
   }
 
-  static setFilter({ from, to = moment.utc() }) {
-    Router.replace(`/stats?from=${from}&to=${to}`);
+  static setFilter({ from, to = endOfToday() }) {
+    Router.replace({
+      pathname: '/stats',
+      query: {
+        from: from.toISOString(),
+        to: to.toISOString(),
+      },
+    });
   }
 
   static generateChartData(data) {

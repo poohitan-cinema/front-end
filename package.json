@@ -16,10 +16,10 @@
   "dependencies": {
     "animejs": "^3.1.0",
     "chart.js": "^2.8.0",
+    "date-fns": "^2.12.0",
     "express": "^4.16.4",
     "isomorphic-unfetch": "^3.0.0",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
     "next": "^9.3.4",
     "nookies": "^2.0.1",
     "plyr": "^3.5.10",

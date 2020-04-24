@@ -15,7 +15,7 @@ import ContentEditable from '../components/ui/ContentEditable';
 
 import API from '../services/api';
 
-import styles from '../styles/pages/movie.scss';
+import styles from '../styles/pages/movie.module.scss';
 
 const DEFAULT_DESCRIPTION = 'Тут має бути опис фільму';
 
@@ -26,8 +26,13 @@ class MoviePage extends React.Component {
 
     try {
       const [movie] = await API.movies.getMany({ slug }, { cookies });
+      const { url, ...rest } = movie;
 
-      return { ...movie, time: Number(time) };
+      return {
+        source: url,
+        time: Number(time),
+        ...rest,
+      };
     } catch (error) {
       console.error(error);
 
@@ -85,7 +90,7 @@ class MoviePage extends React.Component {
     const {
       id,
       icon,
-      url,
+      source,
       slug,
       time,
       session,
@@ -112,7 +117,7 @@ class MoviePage extends React.Component {
           <div className={styles.playerWrapper}>
             <Player
               key={id}
-              source={url}
+              source={source}
               theme={slug}
               startAt={time}
               onTimeUpdate={currentTime => this.setState({ currentPlayerTime: currentTime })}
@@ -146,7 +151,7 @@ MoviePage.propTypes = {
   description: PropTypes.string,
   slug: PropTypes.string.isRequired,
   icon: PropTypes.string,
-  url: PropTypes.string.isRequired,
+  source: PropTypes.string.isRequired,
   time: PropTypes.number,
   videoId: PropTypes.string,
   session: PropTypes.shape({}).isRequired,

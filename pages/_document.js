@@ -12,7 +12,7 @@ export default class MyDocument extends Document {
     return (
       <html lang="uk-UA">
         <Head>
-          <link rel="stylesheet" href="/static/libs/plyr/plyr.css" />
+          {/* <link rel="stylesheet" href="/static/libs/plyr/plyr.css" /> */}
           <link
             rel="stylesheet"
             href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"

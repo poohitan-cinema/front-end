@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
-import moment from 'moment';
+import { format } from 'date-fns';
 import { parseCookies } from 'nookies';
 
 import config from '../config';
@@ -14,7 +14,7 @@ import Layout from '../components/Layout';
 import FireLight from '../components/ui/FireLight';
 import API from '../services/api';
 
-import styles from '../styles/pages/last-uploads.scss';
+import styles from '../styles/pages/last-uploads.module.scss';
 
 class LastUploadsPage extends React.Component {
   static async getInitialProps({ req, res }) {
@@ -71,7 +71,15 @@ LastUploadsPage.defaultProps = {
 };
 
 const UploadedItem = ({
-  title, number, seasonNumber, serialSlug, serialTitle, slug, type, timestamp, isFresh,
+  title,
+  number,
+  seasonNumber,
+  serialSlug,
+  serialTitle,
+  slug,
+  type,
+  timestamp,
+  isFresh,
 }) => {
   const isEpisode = type === 'episode';
   const href = isEpisode
@@ -85,7 +93,7 @@ const UploadedItem = ({
     ? `${serialTitle}, сезон ${seasonNumber}, серія ${number}`
     : title;
 
-  const date = moment(timestamp).format('DD/MM, HH:mm');
+  const date = format(new Date(timestamp), 'dd/MM, HH:mm', new Date());
   const classList = [styles.item];
 
   if (isFresh) {

@@ -42,6 +42,10 @@
           background: $color;
         }
 
+        .plyr__progress__container {
+          flex-grow: 1;
+        }
+
         .plyr__menu__container .plyr__control[role="menuitemradio"][aria-checked="true"]::before {
           background: darken($color, 5%);
         }

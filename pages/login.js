@@ -6,7 +6,7 @@ import Button from '../components/ui/Button';
 
 import { logIn, isAuthenticated } from '../services/session';
 
-import styles from '../styles/pages/login.scss';
+import styles from '../styles/pages/login.module.scss';
 
 class LoginPage extends React.Component {
   static async getInitialProps({ req, res }) {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Breadcrumb from './breadcrumbs/Breadcrumb';
 import Separator from './breadcrumbs/Separator';
 
-import styles from '../styles/components/breadcrumbs.scss';
+import styles from '../styles/components/breadcrumbs.module.scss';
 
 const Breadcrumbs = ({ crumbs, theme }) => (
   <div className={styles.wrapper}>

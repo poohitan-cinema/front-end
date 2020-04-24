@@ -16,7 +16,7 @@ import LastViewedThing from '../components/LastViewedThing';
 
 import API from '../services/api';
 
-import styles from '../styles/pages/serial.scss';
+import styles from '../styles/pages/serial.module.scss';
 
 class SerialPage extends React.Component {
   static async getInitialProps({ req, res, query }) {

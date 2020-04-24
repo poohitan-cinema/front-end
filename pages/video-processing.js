@@ -12,7 +12,7 @@ import FileInput from '../components/ui/FileInput';
 
 import API from '../services/api';
 
-import styles from '../styles/pages/video-processing.scss';
+import styles from '../styles/pages/video-processing.module.scss';
 
 class VideoProcessingPage extends React.Component {
   static async getInitialProps({ req, res }) {

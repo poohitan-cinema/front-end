@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactContentEditable from 'react-contenteditable';
 
-import styles from '../../styles/components/ui/contenteditable.scss';
+import styles from '../../styles/components/ui/contenteditable.module.scss';
 
 const ContentEditable = ({
   innerRef, content, placeholder, disabled, tagName, className, onChange, onBlur,

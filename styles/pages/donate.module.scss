@@ -1,0 +1,45 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 3em;
+
+  .info {
+    width: 70%;
+
+    p {
+      margin: 0.7em 0;
+      line-height: 1.3em;
+    }
+
+    ul {
+      margin-left: 1.5em;
+    }
+
+    li {
+      margin: 0.3em 0;
+    }
+  }
+
+  .smiley {
+    width: 30%;
+    max-width: 400px;
+    margin-left: 1em;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+
+    .info, .smiley {
+      width: 100%;
+    }
+
+    .smiley {
+      margin-top: 2em;
+      margin-left: none;
+    }
+  }
+}

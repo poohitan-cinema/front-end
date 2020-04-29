@@ -1,0 +1,63 @@
+@import '../variables';
+
+.wrapper {
+  margin-top: 3em;
+
+  .info {
+    display: flex;
+    align-items: center;
+  }
+
+  .text {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    p {
+      margin: 0.3em 0;
+      line-height: 1.3em;
+    }
+
+    ul {
+      margin-left: 1.5em;
+    }
+
+    li {
+      margin: 0.5em 0;
+    }
+  }
+
+  .smiley {
+    display: flex;
+    justify-content: center;
+    height: 4em;
+    margin-top: 2em;
+
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
+
+  .payment-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+
+    .payment-button {
+      background-color: #75AF26;
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 1em 1.5em;
+      transition: all 100ms linear;
+
+      &:hover {
+        background-color: #5E980F;
+      }
+    }
+  }
+}

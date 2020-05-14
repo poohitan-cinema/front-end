@@ -2,6 +2,7 @@
 
 .wrapper {
   display: flex;
+  align-items: center;
   margin-left: 1em;
 
   .item {
@@ -30,6 +31,15 @@
 
     &:hover {
       color: $light-grey;
+    }
+  }
+
+  .icon {
+    width: 32px;
+    height: 32px;
+
+    img {
+      height: 100%;
     }
   }
 

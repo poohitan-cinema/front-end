@@ -19,8 +19,12 @@ const Menu = ({ freshUploadsAvailable }) => {
     },
     {
       href: '/donate',
-      hover: 'Закинути на пивко',
-      icon: 'fas fa-beer',
+      hover: 'Закинути на «Живчик»',
+      icon: (
+        <div className={styles.icon}>
+          <img alt="" src="/static/zhyvchyk.png" />
+        </div>
+      ),
     },
   ];
 
@@ -36,7 +40,7 @@ const Menu = ({ freshUploadsAvailable }) => {
                 className={`${styles.item} ${item.icon ? styles.itemWithIcon : ''}`}
               >
                 {
-                  item.icon ? <i className={item.icon} /> : null
+                  item.icon
                 }
                 <span className={styles.itemTitle}>{item.title}</span>
                 {

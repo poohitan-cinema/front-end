@@ -25,11 +25,10 @@ class LoginPage extends React.Component {
     this.login = this.login.bind(this);
   }
 
-  async login() {
+  async login(e) {
+    e.preventDefault();
     const { name, password } = this.state;
-
     this.setState({ loginInProgress: true });
-
     try {
       await logIn({ name, password });
 
@@ -48,7 +47,7 @@ class LoginPage extends React.Component {
       <div className={styles.wrapper}>
         <h2>Фільми на халяву, без реклами і всякої туфти</h2>
         <h3>Лише для своїх чуваків і чувіх</h3>
-        <div className={styles.loginForm}>
+        <form onSubmit={this.login} className={styles.loginForm}>
           <Input
             placeholder="Ім'я"
             value={name}
@@ -66,8 +65,8 @@ class LoginPage extends React.Component {
             onChange={enteredPassword => this.setState({ password: enteredPassword })}
             className={styles.input}
           />
-          <Button disabled={loginInProgress} onClick={this.login}>Увійти</Button>
-        </div>
+          <Button type="submit" disabled={loginInProgress}>Увійти</Button>
+        </form>
       </div>
     );
   }

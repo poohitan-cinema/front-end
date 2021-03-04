@@ -13,6 +13,7 @@ const Button = ({
   light,
   onClick,
   className,
+  type,
 }) => {
   const classList = [className, styles.button, styles[theme]];
 
@@ -30,7 +31,7 @@ const Button = ({
 
   return (
     <button
-      type="button"
+      type={type}
       disabled={disabled}
       onClick={onClick}
       className={classList.join(' ')}
@@ -57,6 +58,7 @@ Button.propTypes = {
   light: PropTypes.bool,
   onClick: PropTypes.func,
   className: PropTypes.string,
+  type: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -69,6 +71,7 @@ Button.defaultProps = {
   light: false,
   onClick: () => {},
   className: '',
+  type: 'button',
 };
 
 export default Button;

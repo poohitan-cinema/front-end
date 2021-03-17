@@ -13,7 +13,8 @@
     "jsx-a11y/no-static-element-interactions": [1],
     "jsx-a11y/click-events-have-key-events": [1],
     "jsx-a11y/media-has-caption": [1],
-    "global-require": [1]
+    "global-require": [1],
+    "react/button-has-type": [1]
   },
   "globals": {
     "$": false,

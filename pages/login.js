@@ -3,7 +3,7 @@ import Router from 'next/router';
 
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
-import Alert from '../components/LoginAlert';
+import Alert from '../components/Alert';
 
 import { logIn, isAuthenticated } from '../services/session';
 

@@ -3,6 +3,7 @@ import Router from 'next/router';
 
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
+import Alert from '../components/Alert';
 
 import { logIn, isAuthenticated } from '../services/session';
 
@@ -34,19 +35,26 @@ class LoginPage extends React.Component {
 
       Router.push('/');
     } catch (error) {
-      window.alert(error.message);
+      this.setState({ errorMessage: error.message, alertVisible: true });
     } finally {
       this.setState({ loginInProgress: false });
     }
   }
 
   render() {
-    const { name, password, loginInProgress } = this.state;
+    const {
+      name, password, loginInProgress, errorMessage, alertVisible,
+    } = this.state;
 
     return (
       <div className={styles.wrapper}>
         <h2>Фільми на халяву, без реклами і всякої туфти</h2>
         <h3>Лише для своїх чуваків і чувіх</h3>
+        <Alert
+          message={errorMessage}
+          visible={alertVisible}
+          onClose={() => this.setState({ alertVisible: false })}
+        />
         <form onSubmit={this.login} className={styles.loginForm}>
           <Input
             placeholder="Ім'я"
